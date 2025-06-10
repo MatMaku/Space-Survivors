@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -16,30 +18,62 @@ public class EnemyController : MonoBehaviour
     public GameObject expPrefab;
     public float expSpreadForce = 2f;
 
+    private bool puedeAtacar = true;
+
+    private float stoppingDistance = 0.5f;
+    public NavMeshAgent _agent;
+
     private void Awake()
     {
         currentHealth = _data.vida;
+        _agent = GetComponent<NavMeshAgent>();
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null)
         {
             _player = jugador.transform;
         }
+        _agent.stoppingDistance = stoppingDistance;
+        _agent.speed = _data.velocidad;
     }
 
     private void Update()
     {
-        if (_player != null)
-        {
-            Vector3 direccion = (_player.position - transform.position).normalized;
-            transform.position += direccion * _data.velocidad * Time.deltaTime;
+        #region movimiento sin NavMesh
+        //if (_player != null)
+        //{
+        //    Vector3 direccion = (_player.position - transform.position).normalized;
+        //    transform.position += direccion * _data.velocidad * Time.deltaTime;
+        //    rotarHaciaJugador();
 
-            rotarHaciaJugador();
+        //    if (Vector3.Distance(_player.position, transform.position) < 0.3f && puedeAtacar)
+        //    {
+        //        Debug.Log("La nave enemiga ataco al jugador");
+        //        StartCoroutine(atacando());
+        //    }
+        //}
+        #endregion
+
+        #region movimiento con NavMesh
+        float distance = Vector3.Distance(transform.position, _player.position);
+        if (distance > stoppingDistance)
+        {
+            _agent.isStopped = false;
+            _agent.SetDestination(_player.position);
         }
+        else if (puedeAtacar)
+        {
+            _agent.isStopped = true;
+            Debug.Log("La nave enemiga ataco al jugador");
+            StartCoroutine(atacando());
+
+        }
+        #endregion
+
     }
 
     private void rotarHaciaJugador()
     {
-        Vector3 direccion = (_player.position - transform.position);
+        Vector3 direccion = (_player.position - transform.position).normalized;
         direccion.y = 0f;
 
         if (direccion != Vector3.zero)
@@ -82,5 +116,12 @@ public class EnemyController : MonoBehaviour
     {
         currentHealth = data.vida;
         gameObject.SetActive(true);
+    }
+
+    IEnumerator atacando()
+    {
+        puedeAtacar = false;
+        yield return new WaitForSeconds(5f);
+        puedeAtacar = true;
     }
 }

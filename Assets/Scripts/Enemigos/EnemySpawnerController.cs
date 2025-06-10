@@ -9,14 +9,26 @@ using UnityEngine;
 public class SpawnPhase
 {
     public float spawnInterval;
+    public float endPhase;
     public List<GameObject> enemies;
+}
+
+[Serializable]
+public class BossSpawn
+{
+    public GameObject prefabBoss;
+    public float distanciaAparicion;
 }
 public class EnemySpawnerController : MonoBehaviour
 {
     [Header("Enemy spawn")]
     public List<SpawnPhase> spawnPhases;
+    private float endCurrentPhase;
     private int indexPhase;
     private Coroutine spawnRoutine;
+    public List<BossSpawn> bosses;
+    private BossSpawn nextBoss;
+    private int bossesIndex;
 
     private List<GameObject> enemiesInGame = new List<GameObject>();
     private List<DatosEnemigo> enemigosPermitidos = new List<DatosEnemigo>();
@@ -38,6 +50,7 @@ public class EnemySpawnerController : MonoBehaviour
     private void Start()
     {
         indexPhase = 0;
+        bossesIndex = 0;
         agregarMasEnemigos();
         spawnRoutine = StartCoroutine(SpawnEnemiesRoutine());
     }
@@ -48,10 +61,20 @@ public class EnemySpawnerController : MonoBehaviour
         DistanciaUI.text = Mathf.RoundToInt(distanciaRecorrida).ToString() + "KM";
 
         if (indexPhase < spawnPhases.Count-1 &&
-            distanciaRecorrida > 100 * (indexPhase + 1))
+            distanciaRecorrida > endCurrentPhase)
         {
             indexPhase++;
             agregarMasEnemigos();
+        }
+
+        if (bossesIndex < bosses.Count && distanciaRecorrida > bosses[bossesIndex].distanciaAparicion)
+        {
+            Instantiate(bosses[bossesIndex].prefabBoss, Vector3.zero, Quaternion.identity);
+            if (bossesIndex < bosses.Count)
+            {
+                bossesIndex++;
+            }
+
         }
     }
 
@@ -84,6 +107,7 @@ public class EnemySpawnerController : MonoBehaviour
                 enemigosPermitidos.Add(datos);
             }
         }
+        endCurrentPhase = spawnPhases[indexPhase].endPhase;
     }
 
     IEnumerator SpawnEnemiesRoutine()
