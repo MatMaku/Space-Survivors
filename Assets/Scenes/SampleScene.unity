@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338738, g: 0.21673954, b: 0.29880902, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733872, g: 0.21673915, b: 0.29880828, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &70016496
 Transform:
   m_ObjectHideFlags: 0
@@ -219,11 +219,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPhases:
   - spawnInterval: 5
+    endPhase: 150
     enemies:
     - {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f, type: 3}
   - spawnInterval: 5
+    endPhase: 450
     enemies:
     - {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4, type: 3}
+  bosses:
+  - prefabBoss: {fileID: 2991348612521557642, guid: 4731be2ec7191e0419d929e35d8ba71e,
+      type: 3}
+    distanciaAparicion: 10
   spawnZones:
   - {fileID: 13581680}
   - {fileID: 1718273899}
@@ -398,7 +404,8 @@ GameObject:
   - component: {fileID: 300302383}
   - component: {fileID: 300302382}
   - component: {fileID: 300302381}
-  m_Layer: 0
+  - component: {fileID: 300302385}
+  m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -487,11 +494,42 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &300302385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300302380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 197eaaed52aa7f74d8d05cc53ba4b089, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,18 +930,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1377417066}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &505899397 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252,
-    type: 3}
-  m_PrefabInstance: {fileID: 1377417066}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &566953110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 59ea47026c0957b439b2e10179c9bf65,
@@ -928,11 +954,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eada54db32303514fbfc747dce203eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PropulsoresEffect:
-  - {fileID: 1556404779}
-  - {fileID: 1020329192}
-  joystick: {fileID: 505899397}
-  Speed: 2
+  PropulsoresEffect: []
+  joystick: {fileID: 0}
+  Speed: 0
 --- !u!54 &566953116
 Rigidbody:
   m_ObjectHideFlags: 0
