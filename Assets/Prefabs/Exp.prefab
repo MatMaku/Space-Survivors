@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Valor: 1
   lifeTime: 10
-  blinkStartTime: 7
+  blinkStartTime: 5
 --- !u!135 &777909333735654364
 SphereCollider:
   m_ObjectHideFlags: 0
