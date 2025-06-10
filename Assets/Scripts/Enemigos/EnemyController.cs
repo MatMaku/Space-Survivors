@@ -21,51 +21,31 @@ public class EnemyController : MonoBehaviour
     private bool puedeAtacar = true;
 
     private float stoppingDistance = 0.5f;
-    public NavMeshAgent _agent;
 
     private void Awake()
     {
         currentHealth = _data.vida;
-        _agent = GetComponent<NavMeshAgent>();
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null)
         {
             _player = jugador.transform;
         }
-        _agent.stoppingDistance = stoppingDistance;
-        _agent.speed = _data.velocidad;
     }
 
     private void Update()
     {
         #region movimiento sin NavMesh
-        //if (_player != null)
-        //{
-        //    Vector3 direccion = (_player.position - transform.position).normalized;
-        //    transform.position += direccion * _data.velocidad * Time.deltaTime;
-        //    rotarHaciaJugador();
-
-        //    if (Vector3.Distance(_player.position, transform.position) < 0.3f && puedeAtacar)
-        //    {
-        //        Debug.Log("La nave enemiga ataco al jugador");
-        //        StartCoroutine(atacando());
-        //    }
-        //}
-        #endregion
-
-        #region movimiento con NavMesh
-        float distance = Vector3.Distance(transform.position, _player.position);
-        if (distance > stoppingDistance)
+        if (_player != null)
         {
-            _agent.isStopped = false;
-            _agent.SetDestination(_player.position);
-        }
-        else if (puedeAtacar)
-        {
-            _agent.isStopped = true;
-            Debug.Log("La nave enemiga ataco al jugador");
-            StartCoroutine(atacando());
+            Vector3 direccion = (_player.position - transform.position).normalized;
+            transform.position += direccion * _data.velocidad * Time.deltaTime;
+            rotarHaciaJugador();
 
+            if (Vector3.Distance(_player.position, transform.position) < stoppingDistance && puedeAtacar)
+            {
+                Debug.Log("La nave enemiga ataco al jugador");
+                StartCoroutine(atacando());
+            }
         }
         #endregion
 

@@ -186,7 +186,7 @@ MonoBehaviour:
   vidaActual: 0
   cantExp: 50
   spawnBalas: {fileID: 5853995904905486157}
-  expPrefab: {fileID: 8357243238969368254, guid: 98755bc6e38882f4198510a3797fd524,
+  expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
     type: 3}
   balaPrefab: {fileID: 2871340201623915405, guid: 8f9ebe4a5f40d51419c65a3fff2a23b6,
     type: 3}
