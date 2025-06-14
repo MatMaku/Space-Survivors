@@ -22,6 +22,10 @@ public class EnemyController : MonoBehaviour
 
     private float stoppingDistance = 0.5f;
 
+    [Header("Separación entre enemigos")]
+    public float radioSeparacion = 1.2f;
+    public float fuerzaSeparacion = 1.5f;
+
     private void Awake()
     {
         currentHealth = _data.vida;
@@ -34,9 +38,9 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        #region movimiento sin NavMesh
         if (_player != null)
         {
+            SepararDeOtrosEnemigos();
             Vector3 direccion = (_player.position - transform.position).normalized;
             transform.position += direccion * _data.velocidad * Time.deltaTime;
             rotarHaciaJugador();
@@ -47,7 +51,6 @@ public class EnemyController : MonoBehaviour
                 StartCoroutine(atacando());
             }
         }
-        #endregion
 
     }
 
@@ -61,6 +64,33 @@ public class EnemyController : MonoBehaviour
             Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo,
                                                     velocidadRotacion * Time.deltaTime);
+        }
+    }
+
+    private void SepararDeOtrosEnemigos()
+    {
+        Collider[] cercanos = Physics.OverlapSphere(transform.position, radioSeparacion);
+        Vector3 direccionRepulsiva = Vector3.zero;
+        int cantidad = 0;
+
+        foreach (Collider col in cercanos)
+        {
+            if (col.gameObject != this.gameObject && col.CompareTag("Enemy"))
+            {
+                Vector3 dir = transform.position - col.transform.position;
+                float distancia = dir.magnitude;
+                if (distancia > 0)
+                {
+                    direccionRepulsiva += dir.normalized / distancia; // más empuje si están más cerca
+                    cantidad++;
+                }
+            }
+        }
+
+        if (cantidad > 0)
+        {
+            direccionRepulsiva /= cantidad;
+            transform.position += direccionRepulsiva * fuerzaSeparacion * Time.deltaTime;
         }
     }
 
