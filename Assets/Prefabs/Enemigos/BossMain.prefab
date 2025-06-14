@@ -117,7 +117,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4970950275315321899}
-  - component: {fileID: 2179918982876487087}
   - component: {fileID: 4847568837259929595}
   m_Layer: 0
   m_Name: BossMain
@@ -136,34 +135,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -4.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6545258104572811087}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &2179918982876487087
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2991348612521557642}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &4847568837259929595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,12 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0c67875db08e646ab1f1f8dc85704c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  areaSize: {x: 6, y: 0, z: 1}
-  distanciaDelCentro: 4.5
-  velocidad: 5
+  velocidad: 0.75
   vidaMax: 100
   vidaActual: 0
   cantExp: 50
@@ -192,6 +164,10 @@ MonoBehaviour:
     type: 3}
   balaSpeed: 5
   expSpreadForce: 2
+  velocidadAngular: 45
+  radioOrbita: 2
+  tiempoEntreDisparos: 1.5
+  velocidadBala: 10
 --- !u!1 &3853096509794741748
 GameObject:
   m_ObjectHideFlags: 0

@@ -370,11 +370,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPhases:
   - spawnInterval: 5
-    endPhase: 0
+    endPhase: 150
     enemies:
     - {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f, type: 3}
   - spawnInterval: 5
-    endPhase: 0
+    endPhase: 300
     enemies:
     - {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4, type: 3}
   bosses: []

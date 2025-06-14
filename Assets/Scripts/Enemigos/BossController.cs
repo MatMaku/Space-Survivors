@@ -6,12 +6,6 @@ using UnityEngine.AI;
 
 public class BossController : MonoBehaviour
 {
-    [Header("Áreas de movimiento")]
-    public LayerMask groundLayer;
-    public Vector3 areaSize;
-    public float distanciaDelCentro;
-    private Vector3 centro;
-
     [Header("Datos Boss")]
     public float velocidad;
     private float velocidadRotacion = 5f;
@@ -20,21 +14,26 @@ public class BossController : MonoBehaviour
     public Transform spawnBalas;
 
     private Transform _player;
-    private NavMeshAgent _agent;
-    private bool estaArriba;
     public GameObject expPrefab;
     public GameObject balaPrefab;
     public float balaSpeed;
     public float expSpreadForce = 2f;
-    private Vector3 _destino;
-    private float timer, intervaloTeletransporte = 5;
 
-    private void Start()
+    [Header("Movimiento orbital")]
+    public float velocidadAngular = 90f;        // grados por segundo
+    public float radioOrbita = 4f;               // distancia fija al jugador
+
+    private float anguloActual = 0f;
+
+    [Header("Disparo")]
+    public float tiempoEntreDisparos = 1.5f;
+    public float velocidadBala = 10f;
+
+    private float temporizadorDisparo = 0f;
+
+    private void Awake()
     {
         vidaActual = vidaMax;
-        _agent = GetComponent<NavMeshAgent>();
-        _agent.speed = velocidad;
-        _agent.updateRotation = false;
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
 
         if (jugador != null)
@@ -42,81 +41,53 @@ public class BossController : MonoBehaviour
             _player = jugador.transform;
         }
 
-        estaArriba = false;
-        transform.position = generarDestino();
-        _destino = generarDestino();
-        StartCoroutine(disparar());
+        anguloActual = UnityEngine.Random.Range(0f, 360f);
+
+        //StartCoroutine(disparar());
     }
 
     private void Update()
     {
-        centro = getCenterPoint();
-        movimiento();
-        teletransporte();
-        //Debug.Log($"Punto en el centro de la pantalla (x,z): {centro}");
-    }
+        if (_player == null) return;
 
-    private void movimiento()
-    {
-        if (Vector3.Distance(transform.position, _destino) > 0.8f) 
-        {
-            _agent.SetDestination(_destino);
-            //Debug.Log($"Me estoy moviendo, falta: {Vector3.Distance(transform.position, _destino)}");
-        }
-        else
-        {
-            _destino = generarDestino();
-            _agent.SetDestination(_destino);
-            //Debug.Log($"Cambie el destino: {_destino}");
-        }
+        // Movimiento orbital fijo
+        anguloActual += velocidadAngular * Time.deltaTime;
+        float radianes = anguloActual * Mathf.Deg2Rad;
+
+        Vector3 offset = new Vector3(Mathf.Cos(radianes), 0f, Mathf.Sin(radianes)) * radioOrbita;
+        Vector3 destino = _player.position + offset;
+
+        transform.position = destino;
+
+        // Rotar hacia el jugador
         rotarHaciaJugador();
-    }
 
-    private Vector3 generarDestino() 
-    {
-        float z = (estaArriba) ? centro.z + distanciaDelCentro :
-                                     centro.z - distanciaDelCentro;
-        float x = recalcularPosicionHorizontal();
-        Vector3 destino = new Vector3(x, transform.position.y, z);
-        return destino;
-    }
-
-    private void teletransporte()
-    {
-        timer += Time.deltaTime;
-
-        if (timer > intervaloTeletransporte)
+        // Disparo
+        temporizadorDisparo += Time.deltaTime;
+        if (temporizadorDisparo >= tiempoEntreDisparos)
         {
-            estaArriba = !estaArriba;
-            float z = (estaArriba) ? centro.z + distanciaDelCentro :
-                                     centro.z - distanciaDelCentro;
-            transform.position = new Vector3(transform.position.x,1,z);
-            _destino.z = z;
-            timer = 0;
+            Disparar();
+            temporizadorDisparo = 0f;
         }
     }
 
-    private float recalcularPosicionHorizontal()
+    private void Disparar()
     {
-        float largo = UnityEngine.Random.Range(0, areaSize.x / 2f);
-        float x;
-        if (centro.x - _destino.x < 0)
-        {
-            x = centro.x - largo;
-        }
-        else
-        {
-            x = centro.x + largo;
-        }
+        if (balaPrefab == null || spawnBalas == null) return;
 
-        return x;
+        GameObject bala = Instantiate(balaPrefab, spawnBalas.position, spawnBalas.rotation);
+        Rigidbody rb = bala.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = spawnBalas.forward * velocidadBala;
+        }
     }
 
     IEnumerator disparar()
     {
         while (true)
         {
-            Vector3 direccion = (estaArriba)? Vector3.back : Vector3.forward;
+            Vector3 direccion = Vector3.zero;
             GameObject bala = Instantiate(balaPrefab,spawnBalas.position,Quaternion.identity);
             Rigidbody rbBala = bala.GetComponent<Rigidbody>();
             if (rbBala != null)
@@ -164,25 +135,5 @@ public class BossController : MonoBehaviour
         }
 
         Destroy(gameObject);
-    }
-
-    public Vector3 getCenterPoint()
-    {
-        Vector3 screenCenter = new Vector3(Screen.width/2f, Screen.height /2f,0f);
-        Ray ray = Camera.main.ScreenPointToRay(screenCenter);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, groundLayer))
-        {
-            return hit.point;
-        }
-
-        return Vector3.zero;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(centro + Vector3.forward * distanciaDelCentro, areaSize);
-        Gizmos.DrawWireCube(centro + Vector3.back * distanciaDelCentro, areaSize);
     }
 }
