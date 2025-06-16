@@ -377,6 +377,10 @@ MonoBehaviour:
     endPhase: 300
     enemies:
     - {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4, type: 3}
+  - spawnInterval: 5
+    endPhase: 450
+    enemies:
+    - {fileID: 2991348612521557642, guid: 4731be2ec7191e0419d929e35d8ba71e, type: 3}
   bosses: []
   spawnZones:
   - {fileID: 13581680}

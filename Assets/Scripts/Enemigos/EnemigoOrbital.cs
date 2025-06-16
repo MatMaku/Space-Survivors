@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemigoOrbital : ControladorEnemigos
+{
+    [Header("Balas")]
+    public Transform spawnBalas;
+    public GameObject balasPrefab;
+    public float velocidadBalas;
+
+    [Header("Movimiento orbital")]
+    private bool acercandose = true;
+    public float velocidadAngular = 90f;
+    public float velocidadAproximación = 0.5f;
+    public float radioOrbita = 4f;
+    private float anguloActual = 0f;
+
+    [Header("Disparo")]
+    public float tiempoEntreDisparos = 1.5f;
+    private float temporizadorDisparo = 0f;
+
+    private void Update()
+    {
+        if (_player == null) return;
+
+        float distanciaAlJugador = Vector3.Distance(transform.position, _player.position);
+
+        if (acercandose)
+        {
+            if (distanciaAlJugador <= radioOrbita)
+            {
+                acercandose = false;
+
+                Vector3 direccion = (transform.position - _player.position).normalized;
+                anguloActual = Mathf.Atan2(direccion.z, direccion.x) * Mathf.Rad2Deg;
+
+            }
+            else
+            {
+                // Movimiento de aproximación
+                Vector3 direccion = (_player.position - transform.position).normalized;
+                transform.position += direccion * velocidadAproximación * Time.deltaTime;
+                rotarHaciaJugador();
+                return;
+
+            }
+        }
+
+        // Movimiento orbital fijo
+        anguloActual += velocidadAngular * Time.deltaTime;
+        float radianes = anguloActual * Mathf.Deg2Rad;
+
+        Vector3 offset = new Vector3(Mathf.Cos(radianes), 0f, Mathf.Sin(radianes)) * radioOrbita;
+        Vector3 destino = _player.position + offset;
+
+        transform.position = destino;
+
+        // Rotar hacia el jugador
+        rotarHaciaJugador();
+
+        // Disparo
+        temporizadorDisparo += Time.deltaTime;
+        if (temporizadorDisparo >= tiempoEntreDisparos)
+        {
+            Disparar();
+            temporizadorDisparo = 0f;
+        }
+    }
+
+    private void Disparar()
+    {
+        if (balasPrefab == null || spawnBalas == null) return;
+
+        GameObject bala = Instantiate(balasPrefab, spawnBalas.position, spawnBalas.rotation);
+        Rigidbody rb = bala.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = spawnBalas.forward * velocidadBalas;
+        }
+    }
+
+    public override void ActivarEnemigo(Vector3 nuevaPosicion)
+    {
+        base.ActivarEnemigo(nuevaPosicion);
+        acercandose = true;
+    }
+}

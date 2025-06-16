@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class ControladorEnemigos : MonoBehaviour
+{
+    protected Transform _player;
+
+    #region Datos del enemigo
+    [Header("Datos de los enemigos")]
+    public string nombre;
+    public int vidaMax;
+    public int daño;
+    public float velocidad;
+    public float resistencia; //al empuje
+    public int cantMaxExp, cantMinExp;
+    public int cantMaxSpawn, cantMinSpawn;
+    #endregion
+
+    #region prefab de experiencia
+    [Header("Experiencia")]
+    public GameObject expPrefab;
+    public float expSpreadForce = 2.0f;
+    #endregion
+
+    private int vidaActual;
+    private float velocidadRotacion = 5f;
+
+    protected virtual void Awake()
+    {
+        vidaActual = vidaMax;
+        GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+        if (jugador != null)
+            _player = jugador.transform;
+        
+    }
+
+    protected virtual void rotarHaciaJugador()
+    {
+        Vector3 direccion = (_player.position - transform.position).normalized;
+        direccion.y = 0f;
+
+        if (direccion != Vector3.zero)
+        {
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo,
+                                                    velocidadRotacion * Time.deltaTime);
+        }
+    }
+
+    public virtual void recibirDaño(int cantidad)
+    {
+        vidaActual -= cantidad;
+        if (vidaActual <= 0)
+        {
+            Morir();
+        }
+    }
+
+    protected virtual void Morir()
+    {
+        int amountToDrop = UnityEngine.Random.Range(cantMinExp, cantMaxExp + 1);
+
+        for (int i = 0; i < amountToDrop; i++)
+        {
+            GameObject exp = Instantiate(expPrefab, transform.position,
+                                        Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+            Rigidbody rb = exp.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector3 randomDir = UnityEngine.Random.insideUnitSphere.normalized;
+                rb.AddForce(randomDir * expSpreadForce, ForceMode.Impulse);
+            }
+        }
+
+        gameObject.SetActive(false);
+    }
+
+    public virtual void ActivarEnemigo(Vector3 nuevaPosicion)
+    {
+        transform.position = nuevaPosicion;
+        vidaActual = vidaMax;
+        gameObject.SetActive(true);
+    }
+}

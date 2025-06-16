@@ -21,6 +21,7 @@ public class EnemyBulletController : MonoBehaviour
         {
             //Hacer daño al jugador
             Debug.Log("Toco al jugador");
+            other.GetComponent<PlayerStats>().RecibirDaño(damage);
             Destroy(gameObject);
         }
     }

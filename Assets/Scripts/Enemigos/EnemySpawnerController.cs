@@ -19,6 +19,20 @@ public class BossSpawn
     public GameObject prefabBoss;
     public float distanciaAparicion;
 }
+
+public class tipoEnemigo
+{
+    public string nombre;
+    public int max, min;
+
+    public tipoEnemigo(string name, int ma, int mi)
+    {
+        nombre = name;
+        max = ma;
+        min = mi;
+    }
+}
+
 public class EnemySpawnerController : MonoBehaviour
 {
     [Header("Enemy spawn")]
@@ -31,7 +45,7 @@ public class EnemySpawnerController : MonoBehaviour
     private int bossesIndex;
 
     private List<GameObject> enemiesInGame = new List<GameObject>();
-    private List<DatosEnemigo> enemigosPermitidos = new List<DatosEnemigo>();
+    private List<tipoEnemigo> enemigosPermitidos = new List<tipoEnemigo>();
 
     [Header("Zonas de spawn")]
     public List<SpawnAreaController> spawnZones;
@@ -101,10 +115,13 @@ public class EnemySpawnerController : MonoBehaviour
     {
         foreach (var enemy in spawnPhases[indexPhase].enemies)
         {
-            DatosEnemigo datos = enemy.GetComponent<EnemyController>().data;
-            if (!enemigosPermitidos.Contains(datos))
+            string nombreEnemigo = enemy.GetComponent<ControladorEnemigos>().nombre;
+            int max = enemy.GetComponent<ControladorEnemigos>().cantMaxSpawn;
+            int min = enemy.GetComponent<ControladorEnemigos>().cantMinSpawn;
+            tipoEnemigo nuevoEnemigo = new tipoEnemigo(nombreEnemigo,max,min);
+            if (!enemigosPermitidos.Contains(nuevoEnemigo))
             {
-                enemigosPermitidos.Add(datos);
+                enemigosPermitidos.Add(nuevoEnemigo);
             }
         }
         endCurrentPhase = spawnPhases[indexPhase].endPhase;
@@ -123,20 +140,19 @@ public class EnemySpawnerController : MonoBehaviour
     {
         SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
 
-        DatosEnemigo selectedEnemy = enemigosPermitidos[UnityEngine.Random.Range(0, enemigosPermitidos.Count)];
+        tipoEnemigo selectedEnemy = enemigosPermitidos[UnityEngine.Random.Range(0, enemigosPermitidos.Count)];
 
-        int cantidad = UnityEngine.Random.Range(selectedEnemy.cantMinSpawn, selectedEnemy.cantMaxSpawn);
+        int cantidad = UnityEngine.Random.Range(selectedEnemy.min, selectedEnemy.max);
 
         List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidad);
 
         for (int i = 0; i < cantidad; i++)
         {
             GameObject objetoElegido = enemiesInGame.FirstOrDefault(x => !x.gameObject.activeInHierarchy &&
-                                        x.GetComponent<EnemyController>().data.id == selectedEnemy.id);
+                                        x.GetComponent<ControladorEnemigos>().nombre == selectedEnemy.nombre);
             if (objetoElegido != null)
             {
-                objetoElegido.transform.position = posiciones[i];
-                objetoElegido.GetComponent<EnemyController>().volverActivar();
+                objetoElegido.GetComponent<ControladorEnemigos>().ActivarEnemigo(posiciones[i]);
             }
             else
             {
