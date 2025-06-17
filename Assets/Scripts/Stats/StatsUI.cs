@@ -13,15 +13,21 @@ public class StatsUI : MonoBehaviour
     private void Start()
     {
         PlayerStats.Instance.OnStatsUpdated += UpdateUI;
+        PlayerStats.Instance.OnHealing += UpdateHP;
         UpdateUI();
+        UpdateHP();
     }
 
     private void UpdateUI()
     {
         vidaSlider.maxValue = PlayerStats.Instance.VidaMax;
-        vidaSlider.value = PlayerStats.Instance.Vida;
         expSlider.maxValue = PlayerStats.Instance.ExpSiguienteNivel;
         expSlider.value = PlayerStats.Instance.Exp;
         nivelText.text = "Nv: " + PlayerStats.Instance.Nivel.ToString();
+    }
+
+    private void UpdateHP()
+    {        
+        vidaSlider.value = PlayerStats.Instance.Vida;
     }
 }

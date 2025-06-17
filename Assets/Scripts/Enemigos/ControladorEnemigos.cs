@@ -23,7 +23,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
     public float expSpreadForce = 2.0f;
     #endregion
 
-    private int vidaActual;
+    private float vidaActual;
     private float velocidadRotacion = 5f;
 
     protected virtual void Awake()
@@ -48,7 +48,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
         }
     }
 
-    public virtual void recibirDaño(int cantidad)
+    public virtual void recibirDaño(float cantidad)
     {
         vidaActual -= cantidad;
         if (vidaActual <= 0)
@@ -63,8 +63,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
 
         for (int i = 0; i < amountToDrop; i++)
         {
-            GameObject exp = Instantiate(expPrefab, transform.position,
-                                        Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+            GameObject exp = Instantiate(expPrefab, transform.position,Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
             Rigidbody rb = exp.GetComponent<Rigidbody>();
             if (rb != null)
             {

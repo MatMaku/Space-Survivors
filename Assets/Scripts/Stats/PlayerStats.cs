@@ -13,6 +13,7 @@ public class PlayerStats : Stats
     public float ExpSiguienteNivel = 3;
 
     public event System.Action OnStatsUpdated;
+    public event System.Action OnHealing;
     private Coroutine vidaCoroutine;
 
     public static PlayerStats Instance { get; private set; }
@@ -65,7 +66,8 @@ public class PlayerStats : Stats
         {
             Vida = VidaMax;
         }
-        OnStatsUpdated?.Invoke();
+        //OnStatsUpdated?.Invoke();
+        OnHealing?.Invoke();
     }
 
     public void GanarExp(float Cantidad)

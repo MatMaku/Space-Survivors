@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DoubleShotWeapon : Weapon
@@ -6,6 +7,16 @@ public class DoubleShotWeapon : Weapon
     public GameObject projectilePrefab;
     public Transform firePointLeft;
     public Transform firePointRight;
+
+    private void Start()
+    {
+        PlayerStats.Instance.OnStatsUpdated += SetFireRate;
+    }
+
+    private void SetFireRate()
+    {
+        fireRate = PlayerStats.Instance.VelocidadAtaque;
+    }
 
     public override void UpdateWeapon()
     {
@@ -32,10 +43,10 @@ public class DoubleShotWeapon : Weapon
         GameObject proj = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
 
         // Si el proyectil tiene un script con daño, pasamos el valor
-        var damageComponent = proj.GetComponent<Projectile>();
+        var damageComponent = proj.GetComponent<DoubleShotProyectile>();
         if (damageComponent != null)
         {
-            damageComponent.SetDamage(damage);
+            damageComponent.SetDamage(damage * PlayerStats.Instance.MultiplicadorDaño);
         }
     }
 }

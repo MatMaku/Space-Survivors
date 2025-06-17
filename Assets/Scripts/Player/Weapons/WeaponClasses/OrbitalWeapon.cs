@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,20 @@ public class OrbitalWeapon : Weapon
         RebuildOrbitals();
     }
 
+    private void Start()
+    {
+        PlayerStats.Instance.OnStatsUpdated += UpdateStats;
+    }
+
+    private void UpdateStats()
+    {
+        foreach (var orb in orbitals)
+        {
+            orb.GetComponent<OrbitalProjectile>().SetDamage(damage * PlayerStats.Instance.MultiplicadorDaño);
+        }
+
+    }
+
     private void RebuildOrbitals()
     {
         // Destruir existentes si hay menos de los necesarios
@@ -32,7 +47,7 @@ public class OrbitalWeapon : Weapon
             orbitals.Add(instance);
 
             OrbitalProjectile orbital = instance.GetComponent<OrbitalProjectile>();
-            orbital.SetDamage(damage); // ahora el orbital sólo se encarga de detectar colisión y aplicar daño
+            orbital.SetDamage(damage * PlayerStats.Instance.MultiplicadorDaño); // ahora el orbital sólo se encarga de detectar colisión y aplicar daño
         }
 
         UpdateVisualState();

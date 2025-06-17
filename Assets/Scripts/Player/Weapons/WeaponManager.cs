@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
+    [SerializeField]
     private List<Weapon> allWeapons = new List<Weapon>();
 
     void Start()

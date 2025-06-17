@@ -53,6 +53,7 @@ public class EnemigoOrbital : ControladorEnemigos
 
         Vector3 offset = new Vector3(Mathf.Cos(radianes), 0f, Mathf.Sin(radianes)) * radioOrbita;
         Vector3 destino = _player.position + offset;
+        destino.y = 0f;
 
         transform.position = destino;
 
