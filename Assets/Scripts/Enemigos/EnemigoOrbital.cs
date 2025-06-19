@@ -73,11 +73,25 @@ public class EnemigoOrbital : ControladorEnemigos
     {
         if (balasPrefab == null || spawnBalas == null) return;
 
-        GameObject bala = Instantiate(balasPrefab, spawnBalas.position, spawnBalas.rotation);
+        // Dirección horizontal hacia el jugador
+        Vector3 objetivo = _player.position;
+        objetivo.y = 0f; //  Forzar misma altura
+
+        Vector3 origen = spawnBalas.position;
+        origen.y = 0f; //  Asegurar que la bala también dispare desde altura 0
+
+        Vector3 direccionAlJugador = (objetivo - origen).normalized;
+
+        // Agregar desviación aleatoria (ajustable)
+        float desviacionGrados = 10f;
+        Quaternion desviacion = Quaternion.Euler(0f, Random.Range(-desviacionGrados, desviacionGrados), 0f);
+        Vector3 direccionFinal = desviacion * direccionAlJugador;
+
+        GameObject bala = Instantiate(balasPrefab, spawnBalas.position, Quaternion.LookRotation(direccionFinal));
         Rigidbody rb = bala.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            rb.velocity = spawnBalas.forward * velocidadBalas;
+            rb.velocity = direccionFinal * velocidadBalas;
         }
     }
 

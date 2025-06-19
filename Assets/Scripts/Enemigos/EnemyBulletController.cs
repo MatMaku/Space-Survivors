@@ -6,15 +6,10 @@ public class EnemyBulletController : MonoBehaviour
 {
     public int damage = 1;
 
-
-    void Update()
+    private void Start()
     {
-        if (Mathf.Abs(transform.position.z) > 10)
-        {
-            Destroy(gameObject);
-        }
+        Destroy(gameObject,10f);
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

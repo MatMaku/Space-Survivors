@@ -26,7 +26,13 @@ public class EnemigoBase : ControladorEnemigos
             else
             {
                 SepararDeOtrosEnemigos();
-                Vector3 direccion = (_player.position - transform.position).normalized;
+                Vector3 destino = _player.position;
+                destino.y = 0f;
+
+                Vector3 origen = transform.position;
+                origen.y = 0f;
+
+                Vector3 direccion = (destino - origen).normalized;
                 transform.position += direccion * velocidad * Time.deltaTime;
                 rotarHaciaJugador();
             }
@@ -43,7 +49,11 @@ public class EnemigoBase : ControladorEnemigos
         {
             if (col.gameObject != this.gameObject && col.CompareTag("Enemy"))
             {
-                Vector3 dir = transform.position - col.transform.position;
+                Vector3 posA = transform.position;
+                Vector3 posB = col.transform.position;
+                posA.y = 0f;
+                posB.y = 0f;
+                Vector3 dir = posA - posB;
                 float distancia = dir.magnitude;
                 if (distancia > 0)
                 {
@@ -57,6 +67,9 @@ public class EnemigoBase : ControladorEnemigos
         {
             direccionRepulsiva /= cantidad;
             transform.position += direccionRepulsiva * fuerzaSeparacion * Time.deltaTime;
+            Vector3 pos = transform.position;
+            pos.y = 0f;
+            transform.position = pos;
         }
     }
 
