@@ -33,7 +33,9 @@ public class EnemigoBase : ControladorEnemigos
                 origen.y = 0f;
 
                 Vector3 direccion = (destino - origen).normalized;
-                transform.position += direccion * velocidad * Time.deltaTime;
+                origen += direccion * velocidad * Time.deltaTime;
+                origen.y = 0;
+                transform.position = origen;
                 rotarHaciaJugador();
             }
         }
