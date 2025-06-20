@@ -67,7 +67,8 @@ public abstract class ControladorEnemigos : MonoBehaviour
             Rigidbody rb = exp.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                Vector3 randomDir = UnityEngine.Random.insideUnitSphere.normalized;
+                Vector2 planarRandom = UnityEngine.Random.insideUnitCircle.normalized;
+                Vector3 randomDir = new Vector3(planarRandom.x, 0f, planarRandom.y);
                 rb.AddForce(randomDir * expSpreadForce, ForceMode.Impulse);
             }
         }

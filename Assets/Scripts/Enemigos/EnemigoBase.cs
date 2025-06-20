@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemigoBase : ControladorEnemigos
 {
     private bool puedeAtacar = true;
-    private float distanciaDeContacto = 1f;
+    private float distanciaDeContacto = 0.3f;
 
     [Header("Separación entre enemigos")]
     public float radioSeparacion = 1.2f;
@@ -37,6 +37,11 @@ public class EnemigoBase : ControladorEnemigos
                 origen.y = 0;
                 transform.position = origen;
                 rotarHaciaJugador();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Morir();
             }
         }
     }
