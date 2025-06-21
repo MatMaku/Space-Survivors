@@ -372,16 +372,66 @@ MonoBehaviour:
   - spawnInterval: 5
     endPhase: 150
     enemies:
-    - {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f, type: 3}
+    - enemyPrefab: {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f,
+        type: 3}
+      enabledInPhase: 0
+      minSpawn: 5
+      maxSpawn: 8
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4,
+        type: 3}
+      enabledInPhase: 0
+      minSpawn: 3
+      maxSpawn: 5
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 4844376513412473903, guid: ac886baf58883fb43be897796a5bff02,
+        type: 3}
+      enabledInPhase: 0
+      minSpawn: 1
+      maxSpawn: 2
+      spawnMaximo: 10
   - spawnInterval: 5
     endPhase: 300
     enemies:
-    - {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4, type: 3}
+    - enemyPrefab: {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f,
+        type: 3}
+      enabledInPhase: 1
+      minSpawn: 5
+      maxSpawn: 8
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4,
+        type: 3}
+      enabledInPhase: 1
+      minSpawn: 3
+      maxSpawn: 5
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 4844376513412473903, guid: ac886baf58883fb43be897796a5bff02,
+        type: 3}
+      enabledInPhase: 0
+      minSpawn: 1
+      maxSpawn: 2
+      spawnMaximo: 10
   - spawnInterval: 5
     endPhase: 450
     enemies:
-    - {fileID: 2991348612521557642, guid: 4731be2ec7191e0419d929e35d8ba71e, type: 3}
-  bosses: []
+    - enemyPrefab: {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f,
+        type: 3}
+      enabledInPhase: 1
+      minSpawn: 5
+      maxSpawn: 8
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 6748246997250404452, guid: 57fb51fb711b47f4899a0856c03b2ca4,
+        type: 3}
+      enabledInPhase: 1
+      minSpawn: 3
+      maxSpawn: 5
+      spawnMaximo: 50
+    - enemyPrefab: {fileID: 4844376513412473903, guid: ac886baf58883fb43be897796a5bff02,
+        type: 3}
+      enabledInPhase: 1
+      minSpawn: 1
+      maxSpawn: 2
+      spawnMaximo: 10
   spawnZones:
   - {fileID: 13581680}
   - {fileID: 1718273899}
@@ -1375,8 +1425,8 @@ MonoBehaviour:
   VidaMax: 100
   Vida: 2
   Velocidad: 2
-  "MultiplicadorDa\xF1o": 0
-  VelocidadAtaque: 0
+  "MultiplicadorDa\xF1o": 1
+  VelocidadAtaque: 5
   "Recuperaci\xF3nVida": 1
   Nivel: 1
   Exp: 0
@@ -7684,7 +7734,8 @@ MonoBehaviour:
   isActive: 1
   fireRate: 1
   damage: 1
-  projectilePrefab: {fileID: 2003713712}
+  projectilePrefab: {fileID: 1486853026325014806, guid: c3f689243424eda4cb5e793524f59772,
+    type: 3}
   firePointLeft: {fileID: 2053007049}
   firePointRight: {fileID: 416591706}
 --- !u!1 &1556404776
@@ -13156,7 +13207,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

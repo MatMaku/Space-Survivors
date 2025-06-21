@@ -14,7 +14,6 @@ public abstract class ControladorEnemigos : MonoBehaviour
     public float velocidad;
     public float resistencia; //al empuje
     public int cantMaxExp, cantMinExp;
-    public int cantMaxSpawn, cantMinSpawn;
     #endregion
 
     #region prefab de experiencia

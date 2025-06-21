@@ -40,7 +40,14 @@ public class EnemigoOrbital : ControladorEnemigos
             {
                 // Movimiento de aproximación
                 Vector3 direccion = (_player.position - transform.position).normalized;
-                transform.position += direccion * velocidadAproximación * Time.deltaTime;
+                Vector3 movimiento = direccion * velocidadAproximación * Time.deltaTime;
+                transform.position += movimiento;
+
+                // Forzamos Y = 0
+                Vector3 pos = transform.position;
+                pos.y = 0f;
+                transform.position = pos;
+
                 rotarHaciaJugador();
                 return;
 
