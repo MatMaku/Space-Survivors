@@ -9,11 +9,7 @@ public abstract class Stats : MonoBehaviour
     public float Vida;
     public float Velocidad;
     public float MultiplicadorDaño;
-
-    public abstract void SumarVelocidad(float Cantidad);
-
-    public abstract void SumarMultiplicadorDaño(float Cantidad);
-
+    
     public abstract void RecibirDaño(float Daño);
 
     protected abstract void Muerte();

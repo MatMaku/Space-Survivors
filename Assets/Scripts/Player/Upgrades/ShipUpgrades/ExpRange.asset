@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
+  m_Name: ExpRange
+  m_EditorClassIdentifier: 
+  upgradeName: "Campo de Atracci\xF3n Cu\xE1ntica"
+  description: "Incrementa el alcance para absorber n\xFAcleos de energ\xEDa (experiencia).
+    Mejores versiones amplifican el campo gravitacional."
+  icon: {fileID: 0}
+  type: 1
+  statType: 3
+  value: 1

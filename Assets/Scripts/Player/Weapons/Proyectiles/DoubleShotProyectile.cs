@@ -23,7 +23,8 @@ public class DoubleShotProyectile : Projectile
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        if (other.CompareTag("Enemy"))        
-            Destroy(gameObject);
+        if (other.CompareTag("Enemy"))
+            if(!pierce)
+                Destroy(gameObject);
     }
 }

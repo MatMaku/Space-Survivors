@@ -14,6 +14,7 @@ public class PlayerStats : Stats
 
     public event System.Action OnStatsUpdated;
     public event System.Action OnHealing;
+    public event System.Action OnLevelUp;
     private Coroutine vidaCoroutine;
 
     public static PlayerStats Instance { get; private set; }
@@ -37,11 +38,11 @@ public class PlayerStats : Stats
     }
     private void Update()
     {
-        if (Vida < VidaMax && vidaCoroutine == null)
+        if (Vida < VidaMax && vidaCoroutine == null && RecuperaciónVida > 0)
         {
             vidaCoroutine = StartCoroutine(RecuperarVida());
         }
-        else if (Vida >= VidaMax && vidaCoroutine != null)
+        else if ( (Vida >= VidaMax || RecuperaciónVida <= 0) && vidaCoroutine != null)
         {
             StopCoroutine(vidaCoroutine);
             vidaCoroutine = null;
@@ -85,43 +86,8 @@ public class PlayerStats : Stats
     private void SubirNivel()
     {
         Nivel++;
-    }
-
-    public override void SumarVelocidad(float Cantidad)
-    {
-        Velocidad += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
-
-    public override void SumarMultiplicadorDaño(float Cantidad)
-    {
-        MultiplicadorDaño += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
-
-    public void SumarVelocidadAtaque(float Cantidad)
-    {
-        VelocidadAtaque += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
-
-    public void SumarRecuperaciónVida(float Cantidad)
-    {
-        RecuperaciónVida += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
-
-    public void SumarMultiplicadorExp(float Cantidad)
-    {
-        MultiplicadorExp += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
-
-    public void SumarAlcanceExp(float Cantidad)
-    {
-        AlcanceExp += Cantidad;
-        OnStatsUpdated?.Invoke();
-    }
+        OnLevelUp?.Invoke();
+    }    
 
     public override void RecibirDaño(float Daño)
     {
@@ -137,4 +103,37 @@ public class PlayerStats : Stats
     {
         //Muerte del jugador
     }
+
+    public void ApplyShipUpgrade(ShipUpgrade.ShipStatType statType, float value)
+    {
+        switch (statType)
+        {
+            case ShipUpgrade.ShipStatType.VelocidadAtaque:
+                VelocidadAtaque += value;
+                break;
+            case ShipUpgrade.ShipStatType.RecuperaciónVida:
+                RecuperaciónVida += value;
+                break;
+            case ShipUpgrade.ShipStatType.MultiplicadorExp:
+                MultiplicadorExp += value;
+                break;
+            case ShipUpgrade.ShipStatType.AlcanceExp:
+                AlcanceExp += value;
+                break;
+            case ShipUpgrade.ShipStatType.VidaMax:
+                VidaMax += value;
+                Vida = Mathf.Min(Vida, VidaMax);
+                break;
+            case ShipUpgrade.ShipStatType.Velocidad:
+                Velocidad += value;
+                break;
+            case ShipUpgrade.ShipStatType.MultiplicadorDaño:
+                MultiplicadorDaño += value;
+                break;
+        }
+
+        OnStatsUpdated?.Invoke();
+        // Podés actualizar HUD, recalcular stats, etc. si hace falta
+    }
+
 }

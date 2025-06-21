@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
@@ -12,6 +13,8 @@ public abstract class Weapon : MonoBehaviour
     public float fireRate = 1f;
     protected float nextFireTime = 0f;
     public float damage = 1f;
+    public int level = 1;
+    public int maxLevel = 5;
 
     protected GameObject owner;
     protected MeshRenderer[] meshRenderers;
@@ -30,6 +33,11 @@ public abstract class Weapon : MonoBehaviour
         
     }
 
+    public bool GetActive()
+    {
+        return isActive;
+    }
+
     protected virtual void UpdateVisualState()
     {
         if (meshRenderers == null) return;
@@ -42,4 +50,9 @@ public abstract class Weapon : MonoBehaviour
 
     
     public abstract void UpdateWeapon();
+
+    internal void LevelUp()
+    {
+        level++;
+    }
 }
