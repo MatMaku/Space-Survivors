@@ -148,14 +148,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombre: Enemigo normal
-  vidaMax: 3
-  "da\xF1o": 2
+  vidaBase: 3
+  "da\xF1oBase": 2
   velocidad: 0.5
   resistencia: 0
   cantMaxExp: 3
   cantMinExp: 1
-  cantMaxSpawn: 10
-  cantMinSpawn: 5
   expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
     type: 3}
   expSpreadForce: 2

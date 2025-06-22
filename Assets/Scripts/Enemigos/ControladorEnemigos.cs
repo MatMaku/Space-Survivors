@@ -9,8 +9,8 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #region Datos del enemigo
     [Header("Datos de los enemigos")]
     public string nombre;
-    public int vidaMax;
-    public int daño;
+    public int vidaBase;
+    public int dañoBase;
     public float velocidad;
     public float resistencia; //al empuje
     public int cantMaxExp, cantMinExp;
@@ -23,11 +23,13 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #endregion
 
     private float vidaActual;
+    private float dañoActual;
     private float velocidadRotacion = 5f;
 
     protected virtual void Awake()
     {
-        vidaActual = vidaMax;
+        vidaActual = vidaBase;
+        dañoActual = dañoBase;
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null)
             _player = jugador.transform;
@@ -78,7 +80,14 @@ public abstract class ControladorEnemigos : MonoBehaviour
     public virtual void ActivarEnemigo(Vector3 nuevaPosicion)
     {
         transform.position = nuevaPosicion;
-        vidaActual = vidaMax;
+        vidaActual = vidaBase;
         gameObject.SetActive(true);
+    }
+
+    public void ajustarEstadisticas(float escala)
+    {
+        vidaActual = Mathf.RoundToInt(vidaBase * escala);
+        dañoActual = Mathf.RoundToInt(dañoBase * escala);
+        Debug.Log($"La nueva vida es:{vidaActual} y el nuevo daño es {dañoActual}");
     }
 }

@@ -117,7 +117,13 @@ public class EnemySpawnerController : MonoBehaviour
 
             if (objetoElegido != null)
             {
-                objetoElegido.GetComponent<ControladorEnemigos>().ActivarEnemigo(posiciones[i]);
+                var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
+                controlador.ActivarEnemigo(posiciones[i]);
+
+                int nivel = PlayerStats.Instance.Nivel;
+                float escala = 1f + (nivel /10f);
+
+                controlador.ajustarEstadisticas(escala);
             }
             else
             {

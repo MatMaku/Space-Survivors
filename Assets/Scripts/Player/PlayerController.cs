@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Vector3 pos = transform.position;
+        pos.y = 0f;
+        transform.position = pos;
         PlayerStats.Instance.OnStatsUpdated += ActualizarVelocidad;
     }
     void Update()
@@ -33,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 velocity = new Vector3(joystick.Horizontal * Velocidad, rb.velocity.y, joystick.Vertical * Velocidad);
+        Vector3 velocity = new Vector3(joystick.Horizontal * Velocidad, 0f, joystick.Vertical * Velocidad);
         rb.velocity = velocity;
 
         if (joystick.Horizontal != 0 || joystick.Vertical != 0)
@@ -41,5 +44,9 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(velocity);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * (Velocidad * 3));
         }
+
+        Vector3 pos = transform.position;
+        pos.y = 0f;
+        transform.position = pos;
     }
 }

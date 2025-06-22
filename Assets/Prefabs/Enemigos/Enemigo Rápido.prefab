@@ -151,14 +151,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombre: "Enemigo r\xE1ido"
-  vidaMax: 3
-  "da\xF1o": 1
+  vidaBase: 2
+  "da\xF1oBase": 1
   velocidad: 1
   resistencia: 1
   cantMaxExp: 4
   cantMinExp: 1
-  cantMaxSpawn: 8
-  cantMinSpawn: 4
   expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
     type: 3}
   expSpreadForce: 2

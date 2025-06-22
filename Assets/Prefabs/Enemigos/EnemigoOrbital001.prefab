@@ -228,8 +228,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombre: Enemigo Orbital
-  vidaMax: 10
-  "da\xF1o": 3
+  vidaBase: 5
+  "da\xF1oBase": 3
   velocidad: 1
   resistencia: 1
   cantMaxExp: 10

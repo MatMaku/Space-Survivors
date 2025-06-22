@@ -374,7 +374,7 @@ MonoBehaviour:
     enemies:
     - enemyPrefab: {fileID: 18683664607670812, guid: c4513a3e6b9ec4b4a97ebdd70835f82f,
         type: 3}
-      enabledInPhase: 0
+      enabledInPhase: 1
       minSpawn: 5
       maxSpawn: 8
       spawnMaximo: 50
@@ -1391,9 +1391,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566953110}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 0.1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -7734,6 +7734,8 @@ MonoBehaviour:
   isActive: 1
   fireRate: 1
   damage: 1
+  level: 1
+  maxLevel: 5
   projectilePrefab: {fileID: 1486853026325014806, guid: c3f689243424eda4cb5e793524f59772,
     type: 3}
   firePointLeft: {fileID: 2053007049}
