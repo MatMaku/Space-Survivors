@@ -23,7 +23,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #endregion
 
     private float vidaActual;
-    private float dañoActual;
+    protected float dañoActual;
     private float velocidadRotacion = 5f;
 
     protected virtual void Awake()

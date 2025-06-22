@@ -160,8 +160,8 @@ MonoBehaviour:
   expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
     type: 3}
   expSpreadForce: 2
-  radioSeparacion: 1
-  fuerzaSeparacion: 1
+  radioSeparacion: 0.2
+  fuerzaSeparacion: 0.5
 --- !u!1 &7086639328362302060
 GameObject:
   m_ObjectHideFlags: 0
