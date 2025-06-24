@@ -17,6 +17,8 @@ public class PlayerStats : Stats
     public event System.Action OnLevelUp;
     private Coroutine vidaCoroutine;
 
+    private Dictionary<ShipUpgrade.ShipStatType, int> appliedShipUpgrades = new();
+
     public static PlayerStats Instance { get; private set; }
 
     private void Awake()
@@ -132,8 +134,20 @@ public class PlayerStats : Stats
                 break;
         }
 
+        // Lógica de mejora...
+        if (!appliedShipUpgrades.ContainsKey(statType))
+            appliedShipUpgrades[statType] = 0;
+
+        appliedShipUpgrades[statType]++;
+
         OnStatsUpdated?.Invoke();
         // Podés actualizar HUD, recalcular stats, etc. si hace falta
+    }
+
+
+    public int GetAppliedShipUpgradeCount(ShipUpgrade.ShipStatType statType)
+    {
+        return appliedShipUpgrades.TryGetValue(statType, out var count) ? count : 0;
     }
 
 }

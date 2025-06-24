@@ -1,48 +1,108 @@
 using UnityEngine;
 
-[RequireComponent(typeof(LineRenderer))]
 public class LaserBeamWeapon : Weapon
 {
-    [Header("Punto de disparo del láser")]
-    public Transform firePoint;
+    [Header("Configuración base")]
+    public float baseMaxDistance = 3f;
+    public float baseLaserWidth = 0.05f;
+    public float baseDamage = 0.1f;
+    public float baseTickRate = 1f;
 
-    [Header("Propiedades del láser")]
-    public float maxDistance = 10f;
-    public float laserWidth = 0.5f;
+    [Header("Incrementos por mejora")]
+    public float extraDistancePerLevel = 2f;
+    public float extraWidthPerLevel = 0.05f;
+    public float extraDamagePerLevel = 0.2f;
+    public float tickRateMultiplierLevel4 = 0.5f; // reduce tickRate a 50% del original
 
-    [Header("Visual")]
-    public LineRenderer lineRenderer;
+    [Header("Estado actual")]
+    private float maxDistance;
+    private float laserWidth;
+    private float damage;
+    private float tickRate;
+    private float tickTimer = 0f;
 
-    private RaycastHit hitInfo;
+    private LineRenderer lineRenderer;
+    private Transform firePoint;
+
+    public override void Initialize(GameObject owner)
+    {
+        base.Initialize(owner);
+
+        firePoint = owner.transform;
+        if (firePoint == null)
+        {
+            Debug.LogWarning("No se encontró el FirePoint en el objeto.");
+        }
+
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = false;
+        }
+
+        ApplyUpgrades();
+    }
 
     public override void UpdateWeapon()
     {
         if (!isActive || firePoint == null) return;
 
+        ShootLaser();
+        ApplyUpgrades();
+    }
+
+    private void ApplyUpgrades()
+    {
+        maxDistance = baseMaxDistance;
+        laserWidth = baseLaserWidth;
+        damage = baseDamage;
+        tickRate = baseTickRate;
+
+        if (level >= 2)
+        {
+            maxDistance = baseMaxDistance + extraDistancePerLevel * (level - 1);
+            laserWidth = baseLaserWidth + extraWidthPerLevel * (level - 1);
+        }
+
+        if (level >= 3)
+        {
+            damage = baseDamage + extraDamagePerLevel * (level);
+        }
+
+        if (level >= 4)
+        {
+            tickRate = baseTickRate * tickRateMultiplierLevel4 / (level - 3); // reduce el tiempo entre ticks
+        }
+    }
+
+    private void ShootLaser()
+    {
         Vector3 origin = firePoint.position;
         Vector3 direction = firePoint.forward;
+        Vector3 endPoint = origin + direction * maxDistance;
 
         RaycastHit[] hits = Physics.SphereCastAll(origin, laserWidth / 2f, direction, maxDistance);
 
-        Vector3 endPoint = origin + direction * maxDistance;
-
-        foreach (var hit in hits)
+        tickTimer += Time.deltaTime;
+        if (tickTimer >= tickRate)
         {
-            if (hit.collider.CompareTag("Enemy"))
+            tickTimer = 0f;
+
+            foreach (var hit in hits)
             {
-                var enemy = hit.collider.GetComponent<ControladorEnemigos>();
-                if (enemy != null)
+                if (hit.collider.CompareTag("Enemy"))
                 {
-                    enemy.recibirDaño(damage * PlayerStats.Instance.MultiplicadorDaño);
+                    var enemy = hit.collider.GetComponent<ControladorEnemigos>();
+                    if (enemy != null)
+                    {
+                        enemy.recibirDaño(damage * PlayerStats.Instance.MultiplicadorDaño);
+                    }
+                    endPoint = hit.point;
                 }
-
-                // Ajustamos el punto final para mostrar visualmente el impacto si querés
-                endPoint = hit.point;
-
-                // Si solo querés dañar al primer enemigo que toca, podés cortar acá:
-                // break;
             }
         }
+
+        
 
         UpdateLaserVisual(origin, endPoint);
     }
@@ -52,31 +112,10 @@ public class LaserBeamWeapon : Weapon
         if (lineRenderer == null) return;
 
         lineRenderer.enabled = true;
-        lineRenderer.SetPosition(0, start);
-        lineRenderer.SetPosition(1, end);
-
-        // Aplicar ancho visual
         lineRenderer.startWidth = laserWidth;
         lineRenderer.endWidth = laserWidth;
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
     }
 
-    public override void Initialize(GameObject owner)
-    {
-        base.Initialize(owner);
-        damage = 0.1f;
-        lineRenderer = GetComponent<LineRenderer>();
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-        }
-    }
-
-    protected override void UpdateVisualState()
-    {
-        base.UpdateVisualState();        
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = isActive;
-        }
-    }
 }

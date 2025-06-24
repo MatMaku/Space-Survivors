@@ -10,6 +10,7 @@ public class ShipUpgrade : Upgrade
 
     public ShipStatType statType;
     public float value;
+    public float counter;
 
     public override void ApplyUpgrade()
     {
