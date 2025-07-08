@@ -41,6 +41,11 @@ public class EnemySpawnerController : MonoBehaviour
     public float distanciaRecorrida = 0f;
     public float velocidad = 10f;
 
+    [Header("Oleada sorpresa")]
+    public float probabilidadOleadaSorpresa = 0.1f;
+    public int cantidadMinimaOleada = 30;
+    public int cantidadMaximaOleada = 40; 
+
     private void Awake()
     {
         Time.timeScale = 1f;
@@ -104,13 +109,16 @@ public class EnemySpawnerController : MonoBehaviour
         if (activeEnemies.Count == 0) return;
 
         SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
-        SpawnEnemyConfig selectedEnemy = activeEnemies[UnityEngine.Random.Range(0, activeEnemies.Count)];
 
-        int cantidad = UnityEngine.Random.Range(selectedEnemy.minSpawn, selectedEnemy.maxSpawn + 1);
-        List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidad);
+        bool esOleadaSorpresa = UnityEngine.Random.value < probabilidadOleadaSorpresa;
+        int cantidadTotal = esOleadaSorpresa ? UnityEngine.Random.Range(cantidadMinimaOleada, cantidadMaximaOleada + 1) : 0;
 
-        for (int i = 0; i < cantidad; i++)
+        List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidadTotal);
+
+        for (int i = 0; i < (esOleadaSorpresa ? cantidadTotal : 1); i++)
         {
+            SpawnEnemyConfig selectedEnemy = activeEnemies[UnityEngine.Random.Range(0, activeEnemies.Count)];
+
             GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
                 !x.activeInHierarchy &&
                 x.name.Contains(selectedEnemy.enemyPrefab.name));
@@ -118,16 +126,47 @@ public class EnemySpawnerController : MonoBehaviour
             if (objetoElegido != null)
             {
                 var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
-                controlador.ActivarEnemigo(posiciones[i]);
+                Vector3 posicion = esOleadaSorpresa && i < posiciones.Count ? posiciones[i] : spawnArea.transform.position;
+                controlador.ActivarEnemigo(posicion);
 
                 int nivel = PlayerStats.Instance.Nivel;
-                float escala = 1f + (nivel /10f) + (distanciaRecorrida / 2500f);
+                float escala = 1f + (nivel / 10f) + (distanciaRecorrida / 2500f);
 
                 controlador.ajustarEstadisticas(escala);
             }
             else
             {
                 Debug.LogWarning("No hay más instancias disponibles para: " + selectedEnemy.enemyPrefab.name);
+            }
+        }
+
+        if (!esOleadaSorpresa)
+        {
+            // Spawn normal
+            SpawnEnemyConfig selectedEnemy = activeEnemies[UnityEngine.Random.Range(0, activeEnemies.Count)];
+            int cantidad = UnityEngine.Random.Range(selectedEnemy.minSpawn, selectedEnemy.maxSpawn + 1);
+            List<Vector3> posicionesNormales = spawnArea.recibirPuntosDeSpawn(cantidad);
+
+            for (int i = 0; i < cantidad; i++)
+            {
+                GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
+                    !x.activeInHierarchy &&
+                    x.name.Contains(selectedEnemy.enemyPrefab.name));
+
+                if (objetoElegido != null)
+                {
+                    var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
+                    controlador.ActivarEnemigo(posicionesNormales[i]);
+
+                    int nivel = PlayerStats.Instance.Nivel;
+                    float escala = 1f + (nivel / 10f) + (distanciaRecorrida / 2500f);
+
+                    controlador.ajustarEstadisticas(escala);
+                }
+                else
+                {
+                    Debug.LogWarning("No hay más instancias disponibles para: " + selectedEnemy.enemyPrefab.name);
+                }
             }
         }
     }

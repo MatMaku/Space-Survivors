@@ -16,10 +16,8 @@ public class EnemigoBase : ControladorEnemigos
     {
         if (_player != null)
         {
-            //Debug.Log(Vector3.Distance(_player.position,transform.position));
             if (Vector3.Distance(_player.position, transform.position) < distanciaDeContacto && puedeAtacar)
             {
-                Debug.Log("La nave enemiga ataco al jugador");
                 _player.GetComponent<PlayerStats>().RecibirDaño(dañoActual);
                 StartCoroutine(atacando());
             }

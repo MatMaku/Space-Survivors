@@ -88,6 +88,5 @@ public abstract class ControladorEnemigos : MonoBehaviour
     {
         vidaActual = Mathf.RoundToInt(vidaBase * escala);
         dañoActual = Mathf.RoundToInt(dañoBase * escala);
-        Debug.Log($"La nueva vida es:{vidaActual} y el nuevo daño es {dañoActual}");
     }
 }
