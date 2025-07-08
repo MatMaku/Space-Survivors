@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &200289428672564492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3425042049420412513}
+  m_Layer: 0
+  m_Name: SpawnBala
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3425042049420412513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 200289428672564492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.326}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4580308511679411985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4042613089145983226
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_Name
+      value: Orbital Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3425042049420412513}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4054115145279671927}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1070764551161583678}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 437766357717445165}
+  m_SourcePrefab: {fileID: 100100000, guid: 437d06ca20c0f234a90f0a7368d04fdc, type: 3}
+--- !u!1 &3808733560721452459 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4042613089145983226}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &4054115145279671927
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808733560721452459}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 116
+  m_CollisionDetection: 0
+--- !u!136 &1070764551161583678
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808733560721452459}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.35
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &437766357717445165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3808733560721452459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db3e91da9e5cde4aa0daa8f3aafc00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: Enemigo Orbital
+  vidaBase: 5
+  "da\xF1oBase": 3
+  velocidad: 1
+  resistencia: 1
+  cantMaxExp: 10
+  cantMinExp: 5
+  expPrefab: {fileID: 5942166001734342277, guid: 9c01776dcb2814c449bee07715a03101,
+    type: 3}
+  expSpreadForce: 2
+  spawnBalas: {fileID: 3425042049420412513}
+  balasPrefab: {fileID: 2871340201623915405, guid: 8f9ebe4a5f40d51419c65a3fff2a23b6,
+    type: 3}
+  velocidadBalas: 5
+  velocidadAngular: 45
+  "velocidadAproximaci\xF3n": 1
+  radioOrbita: 2
+  tiempoEntreDisparos: 1.5
+--- !u!4 &4580308511679411985 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 437d06ca20c0f234a90f0a7368d04fdc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4042613089145983226}
+  m_PrefabAsset: {fileID: 0}

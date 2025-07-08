@@ -121,7 +121,7 @@ public class EnemySpawnerController : MonoBehaviour
                 controlador.ActivarEnemigo(posiciones[i]);
 
                 int nivel = PlayerStats.Instance.Nivel;
-                float escala = 1f + (nivel /10f);
+                float escala = 1f + (nivel /10f) + (distanciaRecorrida / 2500f);
 
                 controlador.ajustarEstadisticas(escala);
             }
