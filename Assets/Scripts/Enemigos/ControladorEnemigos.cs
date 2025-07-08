@@ -21,7 +21,8 @@ public abstract class ControladorEnemigos : MonoBehaviour
     public GameObject expPrefab;
     public float expSpreadForce = 2.0f;
     #endregion
-
+    
+    [SerializeField]
     private float vidaActual;
     protected float dañoActual;
     private float velocidadRotacion = 5f;

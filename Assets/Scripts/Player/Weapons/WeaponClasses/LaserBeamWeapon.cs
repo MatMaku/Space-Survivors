@@ -84,26 +84,26 @@ public class LaserBeamWeapon : Weapon
         RaycastHit[] hits = Physics.SphereCastAll(origin, laserWidth / 2f, direction, maxDistance);
 
         tickTimer += Time.deltaTime;
-        if (tickTimer >= tickRate)
+                    
+        foreach (var hit in hits)
         {
-            tickTimer = 0f;
-
-            foreach (var hit in hits)
+            if (hit.collider.CompareTag("Enemy"))
             {
-                if (hit.collider.CompareTag("Enemy"))
+                endPoint = hit.point;
+                var enemy = hit.collider.GetComponent<ControladorEnemigos>();
+                if (enemy != null && tickTimer >= tickRate)
                 {
-                    var enemy = hit.collider.GetComponent<ControladorEnemigos>();
-                    if (enemy != null)
-                    {
-                        enemy.recibirDaño(damage * PlayerStats.Instance.MultiplicadorDaño);
-                    }
-                    endPoint = hit.point;
+                    enemy.recibirDaño(damage * PlayerStats.Instance.MultiplicadorDaño);
+                    tickTimer = 0f;
                 }
+                else
+                {
+                    break;
+                }
+                
             }
         }
-
         
-
         UpdateLaserVisual(origin, endPoint);
     }
 
