@@ -9,6 +9,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #region Datos del enemigo
     [Header("Datos de los enemigos")]
     public string nombre;
+    public int nivel;
     public int vidaBase;
     public int dañoBase;
     public float velocidad;
@@ -82,6 +83,14 @@ public abstract class ControladorEnemigos : MonoBehaviour
     {
         transform.position = nuevaPosicion;
         vidaActual = vidaBase;
+        gameObject.SetActive(true);
+    }
+
+    public virtual void ActivarEnemigo(Vector3 nuevaPosicion, int nivel)
+    {
+        transform.position = nuevaPosicion;
+        vidaActual = Mathf.RoundToInt(vidaBase + (nivel + nivel /4));
+        dañoActual = Mathf.RoundToInt(dañoBase + (dañoBase * (nivel/6)));
         gameObject.SetActive(true);
     }
 

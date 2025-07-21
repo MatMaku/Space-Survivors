@@ -420,7 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 70016496}
-  - component: {fileID: 70016497}
+  - component: {fileID: 70016498}
   m_Layer: 0
   m_Name: SpawnAreas
   m_TagString: Untagged
@@ -447,7 +447,7 @@ Transform:
   - {fileID: 1446269447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &70016497
+--- !u!114 &70016498
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,73 +456,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 70016495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a9b8442937670f41a5fcfe77166ee54, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ea69ece4b70a744c94f2550c4be9f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPhases:
-  - spawnInterval: 5
-    endPhase: 150
-    enemies:
-    - enemyPrefab: {fileID: 2367425273753746769, guid: b2aaade86695a1543b5c1ce3928f128a,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 5
-      maxSpawn: 8
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 6062587884669252533, guid: 62da9c7fbc7acc04b958922b3303f9b5,
-        type: 3}
-      enabledInPhase: 0
-      minSpawn: 3
-      maxSpawn: 5
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 3808733560721452459, guid: 8249aea74d46ef74d81e6aa83acaa464,
-        type: 3}
-      enabledInPhase: 0
-      minSpawn: 1
-      maxSpawn: 2
-      spawnMaximo: 10
-  - spawnInterval: 5
-    endPhase: 500
-    enemies:
-    - enemyPrefab: {fileID: 2367425273753746769, guid: b2aaade86695a1543b5c1ce3928f128a,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 5
-      maxSpawn: 8
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 6062587884669252533, guid: 62da9c7fbc7acc04b958922b3303f9b5,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 3
-      maxSpawn: 5
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 3808733560721452459, guid: 8249aea74d46ef74d81e6aa83acaa464,
-        type: 3}
-      enabledInPhase: 0
-      minSpawn: 1
-      maxSpawn: 2
-      spawnMaximo: 10
-  - spawnInterval: 5
-    endPhase: 900
-    enemies:
-    - enemyPrefab: {fileID: 2367425273753746769, guid: b2aaade86695a1543b5c1ce3928f128a,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 5
-      maxSpawn: 8
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 6062587884669252533, guid: 62da9c7fbc7acc04b958922b3303f9b5,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 3
-      maxSpawn: 5
-      spawnMaximo: 50
-    - enemyPrefab: {fileID: 3808733560721452459, guid: 8249aea74d46ef74d81e6aa83acaa464,
-        type: 3}
-      enabledInPhase: 1
-      minSpawn: 1
-      maxSpawn: 2
-      spawnMaximo: 10
+  enemies:
+  - enemyPrefab: {fileID: 2367425273753746769, guid: b2aaade86695a1543b5c1ce3928f128a,
+      type: 3}
+    minSpawn: 5
+    maxSpawn: 8
+    maximunAmount: 50
+    enableNow: 0
+  - enemyPrefab: {fileID: 6062587884669252533, guid: 62da9c7fbc7acc04b958922b3303f9b5,
+      type: 3}
+    minSpawn: 3
+    maxSpawn: 7
+    maximunAmount: 50
+    enableNow: 0
+  - enemyPrefab: {fileID: 3808733560721452459, guid: 8249aea74d46ef74d81e6aa83acaa464,
+      type: 3}
+    minSpawn: 1
+    maxSpawn: 3
+    maximunAmount: 25
+    enableNow: 0
+  estado: 0
   spawnZones:
   - {fileID: 13581680}
   - {fileID: 1718273899}
@@ -530,10 +486,21 @@ MonoBehaviour:
   - {fileID: 1446269448}
   DistanciaUI: {fileID: 1261506904}
   distanciaRecorrida: 0
-  velocidad: 10
-  probabilidadOleadaSorpresa: 0.1
-  cantidadMinimaOleada: 30
-  cantidadMaximaOleada: 40
+  velocidad: 100
+  finDeFase: 0
+  distanciaEntreFases: 0
+  minDuracionFase: 5
+  maxDuracionFase: 10
+  minLevel: 1
+  maxLevel: 3
+  spawnTime: 5
+  waveProbability: 0.1
+  minWaveAmount: 30
+  maxWaveAmount: 50
+  bossSpawnDistance: 10000
+  bossDistanceCounter: 0
+  bossLevel: 0
+  numberOfBossesEliminated: 0
 --- !u!1 &111091819
 GameObject:
   m_ObjectHideFlags: 0
