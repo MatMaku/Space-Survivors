@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombre: Enemigo Orbital
+  nivel: 0
   vidaBase: 5
   "da\xF1oBase": 3
   velocidad: 1
@@ -197,7 +198,10 @@ MonoBehaviour:
   cantMinExp: 5
   expPrefab: {fileID: 5942166001734342277, guid: 9c01776dcb2814c449bee07715a03101,
     type: 3}
+  vidaPrefab: {fileID: 340911842320458285, guid: 3f23889ecf9f5374d8afcccd59b8f1da,
+    type: 3}
   expSpreadForce: 2
+  vidaActual: 0
   spawnBalas: {fileID: 3425042049420412513}
   balasPrefab: {fileID: 2871340201623915405, guid: 8f9ebe4a5f40d51419c65a3fff2a23b6,
     type: 3}

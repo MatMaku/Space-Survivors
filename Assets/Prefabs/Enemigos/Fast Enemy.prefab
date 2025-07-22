@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nombre: "Enemigo r\xE1ido"
+  nivel: 0
   vidaBase: 2
   "da\xF1oBase": 1
   velocidad: 1
@@ -160,6 +161,9 @@ MonoBehaviour:
   cantMinExp: 1
   expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
     type: 3}
+  vidaPrefab: {fileID: 340911842320458285, guid: 3f23889ecf9f5374d8afcccd59b8f1da,
+    type: 3}
   expSpreadForce: 2
+  vidaActual: 0
   radioSeparacion: 0.2
   fuerzaSeparacion: 0.5

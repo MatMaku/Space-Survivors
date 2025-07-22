@@ -17,9 +17,10 @@ public abstract class ControladorEnemigos : MonoBehaviour
     public int cantMaxExp, cantMinExp;
     #endregion
 
-    #region prefab de experiencia
+    #region prefab de experiencia y vida
     [Header("Experiencia")]
     public GameObject expPrefab;
+    public GameObject vidaPrefab;
     public float expSpreadForce = 2.0f;
     #endregion
     
@@ -76,6 +77,23 @@ public abstract class ControladorEnemigos : MonoBehaviour
             }
         }
 
+        bool dejarCura = UnityEngine.Random.value < 1 - (PlayerStats.Instance.Vida / PlayerStats.Instance.VidaMax);
+
+        if (dejarCura)
+        {
+            int objVida = UnityEngine.Random.Range(1,3);
+            for (int j = 0; j < objVida; j++ )
+            {
+                GameObject life = Instantiate(vidaPrefab, transform.position, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+                Rigidbody lifeRb = life.GetComponent<Rigidbody>();
+                if (lifeRb != null)
+                {
+                    Vector2 planarRandom = UnityEngine.Random.insideUnitCircle.normalized;
+                    Vector3 randomDir = new Vector3(planarRandom.x, 0f, planarRandom.y);
+                    lifeRb.AddForce(randomDir * expSpreadForce, ForceMode.Impulse);
+                }
+            }
+        }
         gameObject.SetActive(false);
     }
 
