@@ -205,22 +205,26 @@ public class SpawnerEnemies : MonoBehaviour
 
     private void changeEnemies()
     {
-        foreach (EnemyConfig enemydata in enemies)
+        if (estado == spawnState.Normal)
         {
-            enemydata.enableNow = false;
-        }
-
-        int cantidad = UnityEngine.Random.Range(1,indexEnemies + 1);
-        for (int i = 0; i < cantidad; i++)
-        {
-            EnemyConfig nextEnemy;
-
-            do
+            foreach (EnemyConfig enemydata in enemies)
             {
-                nextEnemy = enemies[UnityEngine.Random.Range(0, indexEnemies)];
-            } while (nextEnemy.enableNow);
+                enemydata.enableNow = false;
+            }
 
-            nextEnemy.enableNow = true;
+            int cantidad = UnityEngine.Random.Range(1, indexEnemies + 1);
+            for (int i = 0; i < cantidad; i++)
+            {
+                EnemyConfig nextEnemy;
+
+                do
+                {
+                    nextEnemy = enemies[UnityEngine.Random.Range(0, indexEnemies)];
+                } while (nextEnemy.enableNow);
+
+                nextEnemy.enableNow = true;
+            }
         }
+        
     }
 }

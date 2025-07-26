@@ -478,7 +478,25 @@ MonoBehaviour:
     maxSpawn: 3
     maximunAmount: 25
     enableNow: 0
-  estado: 0
+  - enemyPrefab: {fileID: 4757078171677933769, guid: bf2eb1a96b1ec38429455eebb02c9e33,
+      type: 3}
+    minSpawn: 1
+    maxSpawn: 2
+    maximunAmount: 20
+    enableNow: 1
+  - enemyPrefab: {fileID: 2376770808270171697, guid: 4ba34a505d271ca46adeba6358961100,
+      type: 3}
+    minSpawn: 1
+    maxSpawn: 2
+    maximunAmount: 20
+    enableNow: 1
+  - enemyPrefab: {fileID: 77745322245175261, guid: a33bbbb368c1d3b41b4fa240679d1d87,
+      type: 3}
+    minSpawn: 1
+    maxSpawn: 2
+    maximunAmount: 20
+    enableNow: 1
+  estado: 2
   spawnZones:
   - {fileID: 13581680}
   - {fileID: 1718273899}
