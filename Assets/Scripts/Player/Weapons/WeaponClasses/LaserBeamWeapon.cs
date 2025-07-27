@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class LaserBeamWeapon : Weapon
 {
     [Header("Configuración base")]
@@ -16,8 +17,7 @@ public class LaserBeamWeapon : Weapon
 
     [Header("Estado actual")]
     private float maxDistance;
-    private float laserWidth;
-    private float damage;
+    private float laserWidth;    
     private float tickRate;
     private float tickTimer = 0f;
 
