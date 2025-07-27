@@ -74,6 +74,7 @@ public class chainEnemy : ControladorEnemigos
         RaycastHit[] hits = Physics.RaycastAll(inicio, direccion, distancia);
         foreach (var hit in hits)
         {
+            Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Player"))
             {
                 if (Time.time - tiempoUltimoDaño >= intervaloDaño)

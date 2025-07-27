@@ -49,7 +49,8 @@ public class connectedEnemies : ControladorEnemigos
         {
             float angle = (360 / navesHijas.Count) * i;
             Vector3 offset = Quaternion.Euler(0, angle, 0) * Vector3.forward * 0.5f;
-            navesHijas[i].ActivarEnemigo(offset, nivel);
+            offset.y = 0;
+            navesHijas[i].ActivarEnemigo(nuevaPosicion + offset, nivel);
         }
 
         conectarNaves();

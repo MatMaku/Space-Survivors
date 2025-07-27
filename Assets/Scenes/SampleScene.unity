@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17338738, g: 0.21673954, b: 0.29880902, a: 1}
+  m_IndirectSpecularColor: {r: 0.1733872, g: 0.21673915, b: 0.29880828, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -334,8 +334,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centroArea: {x: 0, y: 0, z: 0}
-  areaSize: {x: 2, y: 0, z: 14}
-  distaciaCamara: {x: 5, y: 0, z: 0}
+  areaSize: {x: 2, y: 0, z: 20}
+  distaciaCamara: {x: 8, y: 0, z: 0}
+  pedirPosiciones: 0
 --- !u!1 &48407835
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,8 +1124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centroArea: {x: 0, y: 0, z: 0}
-  areaSize: {x: 10, y: 0, z: 2}
-  distaciaCamara: {x: 0, y: 0, z: 7}
+  areaSize: {x: 20, y: 0, z: 2}
+  distaciaCamara: {x: 0, y: 0, z: 12}
+  pedirPosiciones: 0
 --- !u!1001 &250893417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8955,8 +8957,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centroArea: {x: 0, y: 0, z: 0}
-  areaSize: {x: 10, y: 0, z: 2}
-  distaciaCamara: {x: 0, y: 0, z: -7}
+  areaSize: {x: 20, y: 0, z: 2}
+  distaciaCamara: {x: 0, y: 0, z: -12}
+  pedirPosiciones: 0
 --- !u!1 &1449501500
 GameObject:
   m_ObjectHideFlags: 0
@@ -14546,9 +14549,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be23bd6706ed954781005d2973670b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centroArea: {x: 0, y: 1, z: 0}
-  areaSize: {x: 2, y: 0, z: 14}
-  distaciaCamara: {x: -5, y: 0, z: 0}
+  centroArea: {x: 0, y: 0, z: 0}
+  areaSize: {x: 2, y: 0, z: 20}
+  distaciaCamara: {x: -8, y: 0, z: 0}
+  pedirPosiciones: 0
 --- !u!1 &1786255049
 GameObject:
   m_ObjectHideFlags: 0
