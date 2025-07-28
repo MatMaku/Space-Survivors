@@ -18,9 +18,9 @@ public class EnemigoOrbital : ControladorEnemigos
 
     [Header("Disparo")]
     public float tiempoEntreDisparos = 1.5f;
-    private float temporizadorDisparo = 0f;
+    protected float temporizadorDisparo = 0f;
 
-    private void Update()
+    protected virtual void Update()
     {
         if (_player == null) return;
 
@@ -68,6 +68,11 @@ public class EnemigoOrbital : ControladorEnemigos
         rotarHaciaJugador();
 
         // Disparo
+        ControlDisparo();
+    }
+
+    protected virtual void ControlDisparo()
+    {
         temporizadorDisparo += Time.deltaTime;
         if (temporizadorDisparo >= tiempoEntreDisparos)
         {
@@ -76,7 +81,7 @@ public class EnemigoOrbital : ControladorEnemigos
         }
     }
 
-    private void Disparar()
+    protected void Disparar()
     {
         if (balasPrefab == null || spawnBalas == null) return;
 
