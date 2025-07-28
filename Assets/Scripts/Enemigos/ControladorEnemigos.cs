@@ -25,7 +25,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #endregion
     
     [SerializeField]
-    private float vidaActual;
+    protected float vidaActual;
     protected float dañoActual;
     private float velocidadRotacion = 5f;
 

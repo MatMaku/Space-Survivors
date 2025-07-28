@@ -103,4 +103,12 @@ public class OrbitalBossController : EnemigoOrbital
             laserTimer = 0;
         }
     }
+
+    public override void ActivarEnemigo(Vector3 nuevaPosicion, int nivel)
+    {
+        transform.position = nuevaPosicion;
+        this.nivel = nivel;
+        vidaActual = nivel * 1.5f;
+        dañoActual = dañoBase + nivel / 5;
+    }
 }

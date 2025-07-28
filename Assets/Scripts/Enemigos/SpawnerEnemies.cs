@@ -1,10 +1,19 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+
+[Serializable]
+public class spawnIntervals
+{
+    public float inicio;
+    public float fin;
+}
 
 [Serializable]
 public class EnemyConfig
@@ -13,22 +22,24 @@ public class EnemyConfig
     public int minSpawn, maxSpawn;
     public int maximunAmount;
     public bool enableNow = true;
+    public List<spawnIntervals> intervalos;
 }
 
-public enum spawnState
+[Serializable]
+public class gameEvents
 {
-    Normal,
-    EnPausa,
-    TestingEnemigos,
-    TestingBosses
+    public float cuandoOcurre;
+    public bool ocurrio;
+    public bool hayOleada;
+    public int waveAmount;
+    public bool ApareceElBoss;
 }
 
 public class SpawnerEnemies : MonoBehaviour
 {
     public List<EnemyConfig> enemies = new List<EnemyConfig>();
     private List<GameObject> enemiesInGame = new List<GameObject>();
-
-    public spawnState estado;
+    public List<gameEvents> eventos = new List<gameEvents>();
 
     #region Control de Distancia Recorrida
     [Header("Zonas de Spawn")]
@@ -43,25 +54,18 @@ public class SpawnerEnemies : MonoBehaviour
     #region Control de Fases del juego
     [Header("Control de Fase")]
     public float finDeFase;
-    [SerializeField] private float distanciaEntreFases; //Vuelve a 0 cada vez que empieza una nueva fase
+    [SerializeField] private float distanciaEntreFases; 
     [Range(0,10)]
-    public int minDuracionFase, maxDuracionFase; //Lo que va a durar cada fase
-    public int minLevel, maxLevel; //Se tienen que actualizar con cada fase
-    private int indexEnemies;
+    public int minDuracionFase, maxDuracionFase;
+    public int minLevel, maxLevel;
     public float spawnTime;
     private Coroutine spawnRoutine;
     #endregion
 
-    #region Control Oleadas Sorpresas y Jefes
-    [Header("Oleada Sorpresa")]
-    public float waveProbability = 0.1f;
-    public int minWaveAmount, maxWaveAmount;
-
+    #region Control Jefes
     [Header("Control spawn Jefe")]
-    public float bossSpawnDistance; //La distancia en la que se activa el boss
-    [SerializeField]private float bossDistanceCounter; //Cuenta la distancia que se recorre antes del boss
-    public int bossLevel; //Se tiene que actualizar despues de cada boss con el numberOfBossesEliminated 
-    public int numberOfBossesEliminated; // Cantidad de jefes eliminados
+    public GameObject bossPrefab;
+    public int bossLevel;  
     #endregion
    
     private void Awake()
@@ -74,12 +78,8 @@ public class SpawnerEnemies : MonoBehaviour
     {
         finDeFase = 1000f;
         distanciaEntreFases = 0f;
-        indexEnemies = 0;
         changeEnemies();
         spawnRoutine = StartCoroutine(spawnEnemiesRoutine());
-        bossDistanceCounter = 0f;
-        numberOfBossesEliminated = 0;
-        bossLevel = (numberOfBossesEliminated + 1) * 10;
     }
 
     private void Update()
@@ -87,31 +87,23 @@ public class SpawnerEnemies : MonoBehaviour
         float avanceEfectuado = velocidad * Time.deltaTime;
         distanciaRecorrida += avanceEfectuado;
         DistanciaUI.text = Mathf.RoundToInt(distanciaRecorrida).ToString() + "KM";
-        
-        if (estado == spawnState.Normal)
-        {
-            distanciaEntreFases += avanceEfectuado;
-            bossDistanceCounter += avanceEfectuado;
-            if (distanciaEntreFases >= finDeFase)
-            {
-                distanciaEntreFases = 0;
-                finDeFase = UnityEngine.Random.Range(minDuracionFase, maxDuracionFase) * 100;
-                minLevel += 3;
-                maxLevel += 3;
-                if (maxLevel > 50)
-                {
-                    maxLevel = 50;
-                    minLevel = 50 - 5;
-                }
-                if (indexEnemies < enemies.Count - 1)
-                    indexEnemies++;
 
-                changeEnemies();
-            }
-        }else if (estado == spawnState.TestingBosses)
+        distanciaEntreFases += avanceEfectuado;
+        if (distanciaEntreFases >= finDeFase)
         {
-            bossDistanceCounter += avanceEfectuado;
+            distanciaEntreFases = 0;
+            finDeFase = UnityEngine.Random.Range(minDuracionFase, maxDuracionFase) * 100;
+            minLevel += 3;
+            maxLevel += 3;
+            if (maxLevel > 50)
+            {
+                maxLevel = 50;
+                minLevel = 50 - 5;
+            }
+            
         }
+        changeEnemies();
+        checkEvents();
     }
 
     private void preloadEnemies()
@@ -139,92 +131,102 @@ public class SpawnerEnemies : MonoBehaviour
 
     private void spawnerController()
     {
-        if (estado == spawnState.Normal || estado == spawnState.TestingEnemigos)
+        SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
+        
+        var posibleEnemigos = enemies.Where(e => e.enableNow).ToList();
+        EnemyConfig selectedEnemy = posibleEnemigos[UnityEngine.Random.Range(0, posibleEnemigos.Count)];
+        int cantidad = UnityEngine.Random.Range(selectedEnemy.minSpawn, selectedEnemy.maxSpawn + 1);
+        
+        List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidad);
+        string enemyName = selectedEnemy.enemyPrefab.GetComponent<ControladorEnemigos>().nombre;
+        
+        for (int i = 0; i < posiciones.Count; i++)
         {
-            bool esOleadaSorpresa = UnityEngine.Random.value < waveProbability;
-            SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
-            var posibleEnemigos = enemies.Where(e => e.enableNow).ToList();
-            if (esOleadaSorpresa)
+            GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
+                                        !x.activeInHierarchy &&
+                                        x.GetComponent<ControladorEnemigos>().nombre == enemyName);
+            if (objetoElegido != null)
             {
-                int cantidadTotal = UnityEngine.Random.Range(minWaveAmount, maxWaveAmount + 1);
-                List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidadTotal);
-
-                for (int i = 0; i < posiciones.Count; i++)
-                {
-                    EnemyConfig selectedEnemy = posibleEnemigos[UnityEngine.Random.Range(0, posibleEnemigos.Count)];
-                    string selectedName = selectedEnemy.enemyPrefab.GetComponent<ControladorEnemigos>().nombre;
-                    GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
-                                                !x.activeInHierarchy &&
-                                                x.GetComponent<ControladorEnemigos>().nombre == selectedName);
-                    if (objetoElegido != null)
-                    {
-                        var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
-                        Vector3 posicion = posiciones[i];
-                        int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
-                        controlador.ActivarEnemigo(posicion, nuevoNivel);
-                    }
-                    else
-                    {
-                        Debug.Log("No encontro enemigos para spawnear");
-                    }
-                }
+                var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
+                int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
+                controlador.ActivarEnemigo(posiciones[i], nuevoNivel);
             }
             else
             {
-                EnemyConfig selectedEnemy = posibleEnemigos[UnityEngine.Random.Range(0, posibleEnemigos.Count)];
-                int cantidad = UnityEngine.Random.Range(selectedEnemy.minSpawn, selectedEnemy.maxSpawn + 1);
-                List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(cantidad);
-                string enemyName = selectedEnemy.enemyPrefab.GetComponent<ControladorEnemigos>().nombre;
-                for (int i = 0; i < posiciones.Count; i++)
-                {
-                    GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
-                                                !x.activeInHierarchy &&
-                                                x.GetComponent<ControladorEnemigos>().nombre == enemyName);
-                    if (objetoElegido != null)
-                    {
-                        var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
-                        int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
-                        controlador.ActivarEnemigo(posiciones[i], nuevoNivel);
-                    }
-                    else
-                    {
-                        Debug.Log("No encontro enemigos para spawnear");
-                    }
-                }
+                Debug.Log("No encontro enemigos para spawnear");
             }
-        }
-        if (estado == spawnState.Normal || estado == spawnState.TestingBosses)
-        {
-            if (bossDistanceCounter > bossSpawnDistance)
-            {
-                bossDistanceCounter = 0;
-                //función para spawnear al boss 
-            }
+
         }
     }
 
     private void changeEnemies()
     {
-        if (estado == spawnState.Normal)
+        foreach (EnemyConfig enemy in enemies) 
         {
-            foreach (EnemyConfig enemydata in enemies)
+            for (int i = 0; i < enemy.intervalos.Count; i++)
             {
-                enemydata.enableNow = false;
-            }
-
-            int cantidad = UnityEngine.Random.Range(1, indexEnemies + 1);
-            for (int i = 0; i < cantidad; i++)
-            {
-                EnemyConfig nextEnemy;
-
-                do
+                if (distanciaRecorrida >= enemy.intervalos[i].inicio && distanciaRecorrida < enemy.intervalos[i].fin)
                 {
-                    nextEnemy = enemies[UnityEngine.Random.Range(0, indexEnemies)];
-                } while (nextEnemy.enableNow);
+                    enemy.enableNow = true;
+                    break;
+                }
+                enemy.enableNow = false;
+            }
+        }  
+    }
 
-                nextEnemy.enableNow = true;
+    private void checkEvents()
+    {
+        foreach (gameEvents e in eventos)
+        {
+            if (distanciaRecorrida >= e.cuandoOcurre && !e.ocurrio)
+            {
+                producirEvento(e);
+                break;
             }
         }
-        
+    }
+
+    private void producirEvento(gameEvents ge)
+    {
+        ge.ocurrio = true;
+        if (ge.hayOleada)
+        {
+            generarOleada(ge.waveAmount);
+        }else if (ge.ApareceElBoss)
+        {
+            SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
+            List<Vector3> posicion = spawnArea.recibirPuntosDeSpawn(1);
+            GameObject boss = Instantiate(bossPrefab, posicion[0], Quaternion.identity);
+            ControladorEnemigos bossControl = boss.GetComponent<ControladorEnemigos>();
+            bossControl.ActivarEnemigo(posicion[0], bossLevel);
+        }
+    }
+
+    private void generarOleada(int amount)
+    {
+        SpawnAreaController spawnArea = spawnZones[UnityEngine.Random.Range(0, spawnZones.Count)];
+        List<Vector3> posiciones = spawnArea.recibirPuntosDeSpawn(amount);
+
+        var posibleEnemigos = enemies.Where(e => e.enableNow).ToList();
+
+        for (int i = 0; i < posiciones.Count; i++)
+        {
+            EnemyConfig selectedEnemy = posibleEnemigos[UnityEngine.Random.Range(0, posibleEnemigos.Count)];
+            string enemyName = selectedEnemy.enemyPrefab.GetComponent<ControladorEnemigos>().nombre;
+            GameObject objetoElegido = enemiesInGame.FirstOrDefault(x =>
+                                        !x.activeInHierarchy &&
+                                        x.GetComponent<ControladorEnemigos>().nombre == enemyName);
+            if (objetoElegido != null)
+            {
+                var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
+                int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
+                controlador.ActivarEnemigo(posiciones[i], nuevoNivel);
+            }
+            else
+            {
+                Debug.Log("No encontro enemigos para spawnear");
+            }
+        }
     }
 }
