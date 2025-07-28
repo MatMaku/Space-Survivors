@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: DS lvl 4
   m_EditorClassIdentifier: 
-  upgradeName: "Descarga R\xEDtmica  "
-  description: "Dispara dos r\xE1fagas consecutivas con una leve pausa. La frecuencia
-    de ataque aumenta dr\xE1sticamente."
+  upgradeName: "Mejora: Ca\xF1on doble"
+  description: "La frecuencia de ataque aumenta dr\xE1sticamente."
   icon: {fileID: 0}
   type: 0
   weaponType: 0

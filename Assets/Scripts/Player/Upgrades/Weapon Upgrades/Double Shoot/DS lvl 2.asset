@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: DS lvl 2
   m_EditorClassIdentifier: 
-  upgradeName: Condensadores de Impacto
-  description: "Incrementa el da\xF1o del arma en un 10% por cada nivel actual. La
-    energ\xEDa se concentra mejor en cada disparo."
+  upgradeName: "Mejora: Ca\xF1on doble"
+  description: "Mejora de da\xF1o"
   icon: {fileID: 0}
   type: 0
   weaponType: 0

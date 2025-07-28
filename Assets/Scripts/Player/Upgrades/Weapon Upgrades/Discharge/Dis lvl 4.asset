@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: Dis lvl 4
   m_EditorClassIdentifier: 
-  upgradeName: Alta Frecuencia
-  description: "Dispara con m\xE1s frecuencia, reduciendo el tiempo entre rayos."
+  upgradeName: 'Mejora: Descarga'
+  description: Mayor velocidad de ataque
   icon: {fileID: 0}
   type: 0
   weaponType: 3

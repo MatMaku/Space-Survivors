@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: ORB lvl 3
   m_EditorClassIdentifier: 
-  upgradeName: "N\xFAcleo Intensificado"
-  description: "Las esferas incrementan su da\xF1o y orbitan a una mayor distancia,
-    cubriendo un radio m\xE1s amplio y aumentando el \xE1rea de impacto."
+  upgradeName: 'Mejora: Orbital'
+  description: "Aumento de da\xF1o y distancia"
   icon: {fileID: 0}
   type: 0
   weaponType: 2

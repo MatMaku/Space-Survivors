@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
   m_Name: ExpMultiplier
   m_EditorClassIdentifier: 
-  upgradeName: "Interfaz de An\xE1lisis T\xE1ctico"
-  description: Aumenta la cantidad de experiencia obtenida al eliminar enemigos.
-    Los niveles superiores mejoran la eficiencia de procesamiento de datos para mayor
-    ganancia de experiencia.
+  upgradeName: Multiplicador de Exp
+  description: Aumenta la cantidad de experiencia obtenida
   icon: {fileID: 0}
   type: 1
   statType: 2
   value: 0.2
+  counter: 0

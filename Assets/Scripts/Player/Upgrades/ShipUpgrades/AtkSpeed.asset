@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
   m_Name: AtkSpeed
   m_EditorClassIdentifier: 
-  upgradeName: Sobrecarga de Energia
-  description: Aumenta la velocidad de disparo de las armas (el efecto varai segun
-    el tipo de arma)
+  upgradeName: Velocidad de disparo
+  description: Aumenta la velocidad de disparo
   icon: {fileID: 0}
   type: 1
   statType: 0
   value: 0.2
+  counter: 0

@@ -497,7 +497,7 @@ MonoBehaviour:
     maxSpawn: 2
     maximunAmount: 20
     enableNow: 1
-  estado: 2
+  estado: 0
   spawnZones:
   - {fileID: 13581680}
   - {fileID: 1718273899}
@@ -508,7 +508,7 @@ MonoBehaviour:
   velocidad: 100
   finDeFase: 0
   distanciaEntreFases: 0
-  minDuracionFase: 5
+  minDuracionFase: 4
   maxDuracionFase: 10
   minLevel: 1
   maxLevel: 3
@@ -516,7 +516,7 @@ MonoBehaviour:
   waveProbability: 0.1
   minWaveAmount: 30
   maxWaveAmount: 50
-  bossSpawnDistance: 10000
+  bossSpawnDistance: 1000
   bossDistanceCounter: 0
   bossLevel: 0
   numberOfBossesEliminated: 0
@@ -2445,13 +2445,13 @@ MonoBehaviour:
   Vida: 2
   Velocidad: 2
   "MultiplicadorDa\xF1o": 1
-  VelocidadAtaque: 5
-  "Recuperaci\xF3nVida": 1
+  VelocidadAtaque: 1
+  "Recuperaci\xF3nVida": 0
   Nivel: 1
   Exp: 0
   MultiplicadorExp: 1
   AlcanceExp: 4
-  ExpSiguienteNivel: 3
+  ExpSiguienteNivel: 5
 --- !u!64 &566953123
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14591,7 +14591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
-  isActive: 1
+  isActive: 0
   fireRate: 1
   damage: 1
   level: 1

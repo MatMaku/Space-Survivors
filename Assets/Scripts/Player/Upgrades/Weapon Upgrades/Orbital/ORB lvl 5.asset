@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: ORB lvl 5
   m_EditorClassIdentifier: 
-  upgradeName: Anillo Dual Contrafase
-  description: Se genera un segundo anillo orbital girando en sentido opuesto al
-    primero y en una trayectoria distinta, multiplicando el poder defensivo y ofensivo
-    en todas direcciones.
+  upgradeName: 'Mejora: Orbital'
+  description: Agrega un segundo anillo de esferas
   icon: {fileID: 0}
   type: 0
   weaponType: 2

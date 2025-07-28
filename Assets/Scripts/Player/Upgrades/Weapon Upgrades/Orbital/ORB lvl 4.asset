@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: ORB lvl 4
   m_EditorClassIdentifier: 
-  upgradeName: "\xD3rbita Fren\xE9tica"
-  description: "La rotaci\xF3n de las esferas se acelera dr\xE1sticamente, permitiendo
-    m\xFAltiples impactos por segundo a enemigos pr\xF3ximos."
+  upgradeName: 'Mejora: Orbital'
+  description: "Aumenta la velocidad de rotaci\xF3n"
   icon: {fileID: 0}
   type: 0
   weaponType: 2

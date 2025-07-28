@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: L lvl 3
   m_EditorClassIdentifier: 
-  upgradeName: Cargas Ionizadas
-  description: "La energ\xEDa del rayo se intensifica, infligiendo mayor da\xF1o
-    por cada segundo de contacto. Ideal contra enemigos resistentes."
+  upgradeName: 'Mejora: Laser'
+  description: "Mejora de da\xF1o"
   icon: {fileID: 0}
   type: 0
   weaponType: 1
