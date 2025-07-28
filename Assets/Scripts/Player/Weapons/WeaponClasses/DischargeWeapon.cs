@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Cinemachine.DocumentationSortingAttribute;
 
 [RequireComponent(typeof(LineRenderer))]
 public class ElectricDischargeWeapon : Weapon
 {
     [Header("Electric Discharge Settings")]
-    public float range = 10f;
-    public int maxBounces = 3;
+    public float baseRange = 10f;
+    public float baseDamage = 5f;
+    public int baseMaxBounces = 3;
+    public float baseFireRate = 1f;
+
     public LineRenderer lineRenderer;
     public float lineDuration = 0.2f;
 
@@ -28,11 +32,17 @@ public class ElectricDischargeWeapon : Weapon
         if (!isActive || Time.time < nextFireTime)
             return;
 
-        Fire();
-        nextFireTime = Time.time + fireRate;
+        Fire(); // Normal
+
+        if (level >= 5)
+        {
+            Fire(secondRay: true); // Segundo rayo, distinto objetivo inicial
+        }
+
+        nextFireTime = Time.time + GetFireRate();
     }
 
-    private void Fire()
+    private void Fire(bool secondRay = false)
     {
         List<Vector3> positions = new List<Vector3>();
         HashSet<Transform> hitEnemies = new HashSet<Transform>();
@@ -40,51 +50,62 @@ public class ElectricDischargeWeapon : Weapon
         Vector3 currentPos = owner.transform.position;
         positions.Add(currentPos);
 
-        for (int bounce = 0; bounce < maxBounces; bounce++)
+        Transform startEnemy = FindClosestEnemy(currentPos, hitEnemies, secondRay ? 1 : 0);
+        if (startEnemy == null) return;
+
+        hitEnemies.Add(startEnemy);
+
+        // Daño al primer enemigo
+        var controlador = startEnemy.GetComponent<ControladorEnemigos>();
+        if (controlador != null)
+            controlador.recibirDaño(GetDamage());
+
+        currentPos = startEnemy.position;
+        positions.Add(currentPos);
+
+        int totalBounces = GetMaxBounces() - 1; // Ya usamos uno con el primero
+
+        for (int bounce = 0; bounce < totalBounces; bounce++)
         {
-            Transform closestEnemy = FindClosestEnemy(currentPos, hitEnemies);
+            Transform closest = FindClosestEnemy(currentPos, hitEnemies);
 
-            if (closestEnemy == null)
-                break;
+            if (closest == null) break;
 
-            hitEnemies.Add(closestEnemy);
+            hitEnemies.Add(closest);
 
-            // Aplicar daño usando el script ControladorEnemigos
-            ControladorEnemigos controlador = closestEnemy.GetComponent<ControladorEnemigos>();
+            controlador = closest.GetComponent<ControladorEnemigos>();
             if (controlador != null)
-            {
-                controlador.recibirDaño(damage);
-            }
+                controlador.recibirDaño(GetDamage());
 
-            currentPos = closestEnemy.position;
+            currentPos = closest.position;
             positions.Add(currentPos);
         }
 
         DrawElectricLine(positions);
     }
 
-    private Transform FindClosestEnemy(Vector3 origin, HashSet<Transform> excluded)
+    private Transform FindClosestEnemy(Vector3 origin, HashSet<Transform> excluded, int skip = 0)
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        float minDistance = Mathf.Infinity;
-        Transform closest = null;
+        List<Transform> candidates = new List<Transform>();
 
         foreach (var enemy in enemies)
         {
-            Transform enemyTransform = enemy.transform;
+            Transform t = enemy.transform;
+            if (excluded.Contains(t)) continue;
 
-            if (excluded.Contains(enemyTransform))
-                continue;
-
-            float dist = Vector3.Distance(origin, enemyTransform.position);
-            if (dist < minDistance && dist <= range)
-            {
-                minDistance = dist;
-                closest = enemyTransform;
-            }
+            float dist = Vector3.Distance(origin, t.position);
+            if (dist <= baseRange)
+                candidates.Add(t);
         }
 
-        return closest;
+        candidates.Sort((a, b) =>
+            Vector3.Distance(origin, a.position).CompareTo(Vector3.Distance(origin, b.position)));
+
+        if (skip < candidates.Count)
+            return candidates[skip];
+
+        return null;
     }
 
     private void DrawElectricLine(List<Vector3> positions)
@@ -107,5 +128,24 @@ public class ElectricDischargeWeapon : Weapon
                 lineRenderer.enabled = false;
             }
         }
+    }
+
+    // Mejora: rebotes extra por nivel
+    private int GetMaxBounces()
+    {
+        int extraBounces = Mathf.Max(0, level - 1); // desde nivel 2 suma
+        return baseMaxBounces + extraBounces;
+    }
+
+    // Mejora: daño aumentado a nivel 3+
+    private float GetDamage()
+    {
+        return level >= 3 ? baseDamage * 1.5f : baseDamage;
+    }
+
+    // Mejora: velocidad aumentada a nivel 4+
+    private float GetFireRate()
+    {
+        return level >= 4 ? baseFireRate * 0.75f : baseFireRate;
     }
 }

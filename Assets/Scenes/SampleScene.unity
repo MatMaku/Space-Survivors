@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1733872, g: 0.21673915, b: 0.29880828, a: 1}
+  m_IndirectSpecularColor: {r: 0.17338738, g: 0.21673954, b: 0.29880902, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -966,13 +966,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
-  isActive: 1
+  isActive: 0
   fireRate: 1
-  damage: 1
+  damage: 0.5
   level: 1
   maxLevel: 5
-  range: 10
-  maxBounces: 3
+  baseRange: 3
+  baseDamage: 5
+  baseMaxBounces: 3
+  baseFireRate: 1
   lineRenderer: {fileID: 190645323}
   lineDuration: 0.2
 --- !u!120 &190645323
@@ -9120,7 +9122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
-  isActive: 1
+  isActive: 0
   fireRate: 1
   damage: 1
   level: 1
@@ -14476,12 +14478,33 @@ MonoBehaviour:
   - {fileID: 1786255050}
   - {fileID: 1522272342}
   - {fileID: 846090175}
+  - {fileID: 190645322}
   upgradeButtons:
   - {fileID: 111091821}
   - {fileID: 1597631561}
   - {fileID: 566070649}
   upgradeCanvas: {fileID: 168611674}
   allUpgrades:
+  - {fileID: 11400000, guid: d34a65c841d91644d8ab23838a085c82, type: 2}
+  - {fileID: 11400000, guid: 31cbf237017e4624f81f4d57e3ff0078, type: 2}
+  - {fileID: 11400000, guid: ef75aafe877501346b126a7129abf933, type: 2}
+  - {fileID: 11400000, guid: a83540d61c968a940b8219fe19160cd8, type: 2}
+  - {fileID: 11400000, guid: 678835528a9b8994e9b979ce7474078f, type: 2}
+  - {fileID: 11400000, guid: 5e4545dbaa624604280ce2bcf653005f, type: 2}
+  - {fileID: 11400000, guid: a4c37e6da47eb8e4d93b7df39f2d98d7, type: 2}
+  - {fileID: 11400000, guid: 5dd4dbf7bab78b849a3dcfb8a8e996cc, type: 2}
+  - {fileID: 11400000, guid: 967537dbeb146e84bac35cb3ddd1cbd7, type: 2}
+  - {fileID: 11400000, guid: ace51e7c8d81ca3488dfe8a9df3b88ed, type: 2}
+  - {fileID: 11400000, guid: 088903a35231f6441ac8532347654945, type: 2}
+  - {fileID: 11400000, guid: c7219b0d4fe39ed46ae28a3177fefa6a, type: 2}
+  - {fileID: 11400000, guid: a3bf3876c68f8ca4e8fb24590506c093, type: 2}
+  - {fileID: 11400000, guid: 1c1268770f43b794cbd8ce9a3e54c49a, type: 2}
+  - {fileID: 11400000, guid: 8a9ddef3beb64b945b2b1382a5c78eef, type: 2}
+  - {fileID: 11400000, guid: 99f009d87a3096b44aaeab0b74acc9fe, type: 2}
+  - {fileID: 11400000, guid: b520a69768439514fa00083f2ce472ce, type: 2}
+  - {fileID: 11400000, guid: fd1b8c91732aca649837ff38af83dba9, type: 2}
+  - {fileID: 11400000, guid: 1c1d3085abef94d43b4720a20159c3e9, type: 2}
+  - {fileID: 11400000, guid: a5301eccaa87f3f4c95b332adb86b877, type: 2}
   - {fileID: 11400000, guid: 4004b1faf5737bc4ca259b3f0c13b394, type: 2}
   - {fileID: 11400000, guid: 2256939669b15de4ea13a1e1fc832c03, type: 2}
   - {fileID: 11400000, guid: d7a0bfe62ad5a58488e1f592884a01f1, type: 2}
@@ -14489,21 +14512,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4066d7b27e615474c8cdc60362205969, type: 2}
   - {fileID: 11400000, guid: 85e63dbe9180b3b4d8ab7201c73d2951, type: 2}
   - {fileID: 11400000, guid: 44dfb3fde3b1b9842a3d309665346c5b, type: 2}
-  - {fileID: 11400000, guid: 99f009d87a3096b44aaeab0b74acc9fe, type: 2}
-  - {fileID: 11400000, guid: b520a69768439514fa00083f2ce472ce, type: 2}
-  - {fileID: 11400000, guid: fd1b8c91732aca649837ff38af83dba9, type: 2}
-  - {fileID: 11400000, guid: 1c1d3085abef94d43b4720a20159c3e9, type: 2}
-  - {fileID: 11400000, guid: a5301eccaa87f3f4c95b332adb86b877, type: 2}
-  - {fileID: 11400000, guid: 088903a35231f6441ac8532347654945, type: 2}
-  - {fileID: 11400000, guid: c7219b0d4fe39ed46ae28a3177fefa6a, type: 2}
-  - {fileID: 11400000, guid: a3bf3876c68f8ca4e8fb24590506c093, type: 2}
-  - {fileID: 11400000, guid: 1c1268770f43b794cbd8ce9a3e54c49a, type: 2}
-  - {fileID: 11400000, guid: 8a9ddef3beb64b945b2b1382a5c78eef, type: 2}
-  - {fileID: 11400000, guid: 5e4545dbaa624604280ce2bcf653005f, type: 2}
-  - {fileID: 11400000, guid: a4c37e6da47eb8e4d93b7df39f2d98d7, type: 2}
-  - {fileID: 11400000, guid: 5dd4dbf7bab78b849a3dcfb8a8e996cc, type: 2}
-  - {fileID: 11400000, guid: 967537dbeb146e84bac35cb3ddd1cbd7, type: 2}
-  - {fileID: 11400000, guid: ace51e7c8d81ca3488dfe8a9df3b88ed, type: 2}
   currentOptions: []
 --- !u!1 &1718273897
 GameObject:
@@ -14583,7 +14591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
-  isActive: 0
+  isActive: 1
   fireRate: 1
   damage: 1
   level: 1
