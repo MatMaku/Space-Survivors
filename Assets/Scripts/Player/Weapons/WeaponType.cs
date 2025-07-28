@@ -4,5 +4,6 @@ public enum WeaponType
     LaserBeam,
     OrbitingSphere,
     Discharge,
+    Sniper
     // Agregá más armas acá
 }
