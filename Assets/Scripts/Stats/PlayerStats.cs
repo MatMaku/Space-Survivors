@@ -98,12 +98,12 @@ public class PlayerStats : Stats
         {
             Muerte();
         }
-        OnStatsUpdated?.Invoke();
+        OnHealing?.Invoke();
     }
 
     protected override void Muerte()
     {
-        //Muerte del jugador
+        GameOverController.Instance.TriggerGameOver();
     }
 
     public void ApplyShipUpgrade(ShipUpgrade.ShipStatType statType, float value)

@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour
 {
+    public static GameOverController Instance { get; private set; }
+
     [Header("Referencias")]
     [Tooltip("El GameObject del jugador que desactivaremos.")]
     public GameObject player;
@@ -19,6 +21,18 @@ public class GameOverController : MonoBehaviour
     public float explosionDuration = 2f;
 
     bool hasTriggered = false;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
