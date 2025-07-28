@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
   m_Name: MaxHealt
   m_EditorClassIdentifier: 
-  upgradeName: Revestimiento de Alta Densidad
-  description: "Aumenta la integridad estructural de la nave, incrementando su vida
-    m\xE1xima. Cada nivel agrega capas adicionales de blindaje."
+  upgradeName: Mejora de vida
+  description: Aumenta la integridad estructural de la nave
   icon: {fileID: 0}
   type: 1
   statType: 4
   value: 20
+  counter: 0

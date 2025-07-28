@@ -137,6 +137,8 @@ public class OrbitalWeapon : Weapon
             {
                 var renderer = orb.GetComponentInChildren<MeshRenderer>();
                 if (renderer != null) renderer.enabled = isActive;
+                var collider = orb.GetComponentInChildren<SphereCollider>();
+                if (collider != null) collider.enabled = isActive;
             }
         }
     }

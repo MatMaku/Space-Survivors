@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
   m_Name: HealtRegen
   m_EditorClassIdentifier: 
-  upgradeName: Reparacion Automatica
-  description: Recupera la vida de la nave de forma continua, la vida recuperada
-    aumenta segun el nivel
+  upgradeName: "Recuperaci\xF3n de vida"
+  description: Recupera la vida de la nave de forma continua
   icon: {fileID: 0}
   type: 1
   statType: 1
-  value: 2
+  value: 0.5
+  counter: 0

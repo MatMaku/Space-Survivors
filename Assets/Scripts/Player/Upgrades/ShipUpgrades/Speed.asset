@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b994a31106d094b9bd83b13615fa24, type: 3}
   m_Name: Speed
   m_EditorClassIdentifier: 
-  upgradeName: Propulsores Vectoriales Mejorados
-  description: "Mejora la movilidad general de la nave. Cada nivel refina la respuesta
-    y aceleraci\xF3n de los propulsores."
+  upgradeName: Mejora de velocidad
+  description: Mejora la movilidad general de la nave
   icon: {fileID: 0}
   type: 1
   statType: 5
   value: 0
+  counter: 0

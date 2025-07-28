@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
-  m_Name: ORB lvl 1
+  m_Name: S lvl 4
   m_EditorClassIdentifier: 
-  upgradeName: 'Arma: Orbital'
-  description: Habilita el arma Orbital
+  upgradeName: Sniper
+  description: Subir de nivel
   icon: {fileID: 0}
   type: 0
-  weaponType: 2
-  level: 1
+  weaponType: 4
+  level: 4

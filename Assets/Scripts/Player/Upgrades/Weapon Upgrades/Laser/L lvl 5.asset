@@ -12,10 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: L lvl 5
   m_EditorClassIdentifier: 
-  upgradeName: "Haz de Fusi\xF3n"
-  description: "El l\xE1ser alcanza su m\xE1xima forma: extiende a\xFAn m\xE1s su
-    alcance, atraviesa m\xFAltiples enemigos y se vuelve una l\xEDnea destructiva
-    imparable."
+  upgradeName: 'Mejora: Laser'
+  description: Aumenta su alcance y atraviesa enemigos
   icon: {fileID: 0}
   type: 0
   weaponType: 1

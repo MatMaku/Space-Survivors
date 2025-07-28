@@ -10,7 +10,7 @@ public class PlayerStats : Stats
     public float Exp = 0;
     public float MultiplicadorExp = 1;
     public float AlcanceExp = 0;
-    public float ExpSiguienteNivel = 3;
+    public float ExpSiguienteNivel = 5;
 
     public event System.Action OnStatsUpdated;
     public event System.Action OnHealing;
@@ -80,7 +80,7 @@ public class PlayerStats : Stats
         {
             SubirNivel();
             Exp -= ExpSiguienteNivel;
-            ExpSiguienteNivel = Nivel * 3;
+            ExpSiguienteNivel = Nivel * 5;
         }
         OnStatsUpdated?.Invoke();
     }
@@ -98,12 +98,12 @@ public class PlayerStats : Stats
         {
             Muerte();
         }
-        OnStatsUpdated?.Invoke();
+        OnHealing?.Invoke();
     }
 
     protected override void Muerte()
     {
-        //Muerte del jugador
+        GameOverController.Instance.TriggerGameOver();
     }
 
     public void ApplyShipUpgrade(ShipUpgrade.ShipStatType statType, float value)

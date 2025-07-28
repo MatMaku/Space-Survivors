@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: DS lvl 5
   m_EditorClassIdentifier: 
-  upgradeName: "Munici\xF3n de Fase"
-  description: "Los disparos atraviesan a los enemigos, permitiendo da\xF1ar m\xFAltiples
-    objetivos con una sola r\xE1faga.  "
+  upgradeName: "Mejora: Ca\xF1on doble"
+  description: Los disparos atraviesan a los enemigos
   icon: {fileID: 0}
   type: 0
   weaponType: 0

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Heal : MonoBehaviour
 {
-    [Header("Valor")]
-    public float Valor;
-
     [Header("Vida util")]
     public float lifeTime = 10f;
     public float blinkStartTime = 7f;
@@ -39,7 +36,7 @@ public class Heal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerStats.Instance.Curar(Valor);
+            PlayerStats.Instance.Curar(PlayerStats.Instance.VidaMax * 0.2f);
             Destroy(gameObject);
         }
     }

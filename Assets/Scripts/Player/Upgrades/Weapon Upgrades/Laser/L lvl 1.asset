@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: L lvl 1
   m_EditorClassIdentifier: 
-  upgradeName: Encendido Inicial
-  description: "El l\xE1ser comienza a emanar energ\xEDa. Apunta en l\xEDnea recta
-    y da\xF1a continuamente a los enemigos que alcanza."
+  upgradeName: 'Arma: Laser'
+  description: Habilita el arma Laser
   icon: {fileID: 0}
   type: 0
   weaponType: 1

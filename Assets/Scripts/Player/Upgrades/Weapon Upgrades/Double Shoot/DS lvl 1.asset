@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: DS lvl 1
   m_EditorClassIdentifier: 
-  upgradeName: Doble Barril
-  description: "Habilita el arma Double Shot, disparando dos proyectiles simult\xE1neamente
-    desde los laterales de la nave."
+  upgradeName: "Arma: Ca\xF1on doble"
+  description: "Habilita el arma Ca\xF1on doble"
   icon: {fileID: 0}
   type: 0
   weaponType: 0

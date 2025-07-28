@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: L lvl 4
   m_EditorClassIdentifier: 
-  upgradeName: "Estabilidad T\xE9rmica"
-  description: "Se reduce el tiempo entre pulsos de da\xF1o, haciendo que el l\xE1ser
-    golpee con mayor frecuencia y eficiencia."
+  upgradeName: 'Mejora: Laser'
+  description: "Hace da\xF1o mas rapido"
   icon: {fileID: 0}
   type: 0
   weaponType: 1

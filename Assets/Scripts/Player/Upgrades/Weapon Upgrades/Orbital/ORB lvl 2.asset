@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: ORB lvl 2
   m_EditorClassIdentifier: 
-  upgradeName: Matriz Aumentada
-  description: "Se a\xF1ade una esfera orbital adicional por cada nivel del arma,
-    incrementando la cobertura ofensiva del anillo."
+  upgradeName: 'Mejora: Orbital'
+  description: Agrega una esfera adicional por nivel
   icon: {fileID: 0}
   type: 0
   weaponType: 2
