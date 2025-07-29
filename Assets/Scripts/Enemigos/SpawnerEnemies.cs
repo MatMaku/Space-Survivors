@@ -53,11 +53,11 @@ public class SpawnerEnemies : MonoBehaviour
 
     #region Control de Fases del juego
     [Header("Control de Fase")]
-    public float finDeFase;
+    public float finDeFase = 1000;
     [SerializeField] private float distanciaEntreFases; 
     [Range(0,10)]
     public int minDuracionFase, maxDuracionFase;
-    public int minLevel, maxLevel;
+    public int level = 1;
     public float spawnTime;
     private Coroutine spawnRoutine;
     #endregion
@@ -92,15 +92,7 @@ public class SpawnerEnemies : MonoBehaviour
         if (distanciaEntreFases >= finDeFase)
         {
             distanciaEntreFases = 0;
-            finDeFase = UnityEngine.Random.Range(minDuracionFase, maxDuracionFase) * 100;
-            minLevel += 3;
-            maxLevel += 3;
-            if (maxLevel > 50)
-            {
-                maxLevel = 50;
-                minLevel = 50 - 5;
-            }
-            
+            level += 1; 
         }
         changeEnemies();
         checkEvents();
@@ -148,7 +140,7 @@ public class SpawnerEnemies : MonoBehaviour
             if (objetoElegido != null)
             {
                 var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
-                int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
+                int nuevoNivel = level;
                 controlador.ActivarEnemigo(posiciones[i], nuevoNivel);
             }
             else
@@ -220,7 +212,7 @@ public class SpawnerEnemies : MonoBehaviour
             if (objetoElegido != null)
             {
                 var controlador = objetoElegido.GetComponent<ControladorEnemigos>();
-                int nuevoNivel = UnityEngine.Random.Range(minLevel, maxLevel);
+                int nuevoNivel = level;
                 controlador.ActivarEnemigo(posiciones[i], nuevoNivel);
             }
             else

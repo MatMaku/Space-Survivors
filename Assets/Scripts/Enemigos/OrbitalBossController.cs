@@ -111,4 +111,5 @@ public class OrbitalBossController : EnemigoOrbital
         vidaActual = nivel * 1.5f;
         dañoActual = dañoBase + nivel / 5;
     }
+
 }
