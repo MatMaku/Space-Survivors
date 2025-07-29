@@ -108,7 +108,7 @@ public class OrbitalBossController : EnemigoOrbital
     {
         transform.position = nuevaPosicion;
         this.nivel = nivel;
-        vidaActual = nivel * 1.5f;
+        vidaActual = vidaBase + nivel * 1.5f;
         dañoActual = dañoBase + nivel / 5;
     }
 

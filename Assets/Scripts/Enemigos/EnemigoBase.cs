@@ -12,6 +12,8 @@ public class EnemigoBase : ControladorEnemigos
     public float radioSeparacion = 1.2f;
     public float fuerzaSeparacion = 1.5f;
 
+    public bool isBoss = false;
+
     private void Update()
     {
         if (_player != null)
@@ -83,5 +85,15 @@ public class EnemigoBase : ControladorEnemigos
         puedeAtacar = false;
         yield return new WaitForSeconds(0.5f);
         puedeAtacar = true;
+    }
+
+    protected override void Morir()
+    {
+        if (isBoss)
+        {
+            GameOverController.Instance.TriggerWin();
+        }
+
+        base.Morir();
     }
 }
