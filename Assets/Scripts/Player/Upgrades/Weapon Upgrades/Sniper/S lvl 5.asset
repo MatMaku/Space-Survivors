@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: S lvl 5
   m_EditorClassIdentifier: 
   upgradeName: 'Mejora: Sniper'
-  description: Subir de nivel
+  description: Reduce el CD con la primera Kill
   icon: {fileID: 0}
   type: 0
   weaponType: 4

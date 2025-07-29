@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: S lvl 3
   m_EditorClassIdentifier: 
   upgradeName: 'Mejora: Sniper'
-  description: Subir de nivel
+  description: "Aumenta en gran medida el da\xF1o al primer enemigo"
   icon: {fileID: 0}
   type: 0
   weaponType: 4

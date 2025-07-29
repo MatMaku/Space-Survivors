@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: S lvl 4
   m_EditorClassIdentifier: 
   upgradeName: 'Mejora: Sniper'
-  description: Subir de nivel
+  description: no pierde poder al atravezar enemigos
   icon: {fileID: 0}
   type: 0
   weaponType: 4
