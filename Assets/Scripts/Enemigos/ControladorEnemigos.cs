@@ -20,14 +20,16 @@ public abstract class ControladorEnemigos : MonoBehaviour
     #region prefab de experiencia y vida
     [Header("Experiencia")]
     public GameObject expPrefab;
+    public GameObject expPrefab2;
     public GameObject vidaPrefab;
     public float expSpreadForce = 2.0f;
     #endregion
     
-    [SerializeField]
     public float vidaActual;
     protected float dañoActual;
     private float velocidadRotacion = 5f;
+
+    public GameObject explosionPrefab;
 
     protected virtual void Awake()
     {
@@ -63,6 +65,15 @@ public abstract class ControladorEnemigos : MonoBehaviour
 
     protected virtual void Morir()
     {
+        if (explosionPrefab != null)
+        {
+            Vector3 spawnPos = this != null
+                ? this.transform.position
+                : Vector3.zero;
+            GameObject expl = Instantiate(explosionPrefab, spawnPos, Quaternion.identity);
+            Destroy(expl, 3f);
+        }
+
         int amountToDrop = UnityEngine.Random.Range(cantMinExp, cantMaxExp + 1);
 
         for (int i = 0; i < amountToDrop; i++)
@@ -77,14 +88,29 @@ public abstract class ControladorEnemigos : MonoBehaviour
             }
         }
 
-        bool dejarCura = UnityEngine.Random.value < 1 - (PlayerStats.Instance.Vida / PlayerStats.Instance.VidaMax);
+        float chance = 0.01f + nivel * 0.01f;
+
+        if (UnityEngine.Random.value < chance)
+        {
+            GameObject exp = Instantiate(expPrefab2, transform.position, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+            Rigidbody rb = exp.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                Vector2 planarRandom = UnityEngine.Random.insideUnitCircle.normalized;
+                Vector3 randomDir = new Vector3(planarRandom.x, 0f, planarRandom.y);
+                rb.AddForce(randomDir * expSpreadForce, ForceMode.Impulse);
+            }
+        }
+
+
+        bool dejarCura = UnityEngine.Random.value < 0.1f;
 
         if (dejarCura)
         {
             int objVida = UnityEngine.Random.Range(1,3);
             for (int j = 0; j < objVida; j++ )
             {
-                GameObject life = Instantiate(vidaPrefab, transform.position, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f)));
+                GameObject life = Instantiate(vidaPrefab, transform.position, Quaternion.Euler(0f, 0f, 0f));
                 Rigidbody lifeRb = life.GetComponent<Rigidbody>();
                 if (lifeRb != null)
                 {
@@ -106,6 +132,7 @@ public abstract class ControladorEnemigos : MonoBehaviour
 
     public virtual void ActivarEnemigo(Vector3 nuevaPosicion, int nivel)
     {
+        this.nivel = nivel;
         transform.position = nuevaPosicion;
         vidaActual = Mathf.RoundToInt(vidaBase + (nivel + nivel /4));
         dañoActual = Mathf.RoundToInt(dañoBase + (dañoBase * (nivel/6)));

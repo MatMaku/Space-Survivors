@@ -119,9 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915a0e7739899404b8ab587024bc86e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Valor: 15
-  lifeTime: 30
-  blinkStartTime: 25
+  lifeTime: 50
+  blinkStartTime: 45
 --- !u!64 &4109783252437849199
 MeshCollider:
   m_ObjectHideFlags: 0

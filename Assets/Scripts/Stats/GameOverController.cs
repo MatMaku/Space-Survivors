@@ -13,6 +13,8 @@ public class GameOverController : MonoBehaviour
     public GameObject explosionPrefab;
     [Tooltip("Panel o canvas de Game Over (inactivo al inicio).")]
     public GameObject gameOverUI;
+    [Tooltip("Panel o canvas de victoria (inactivo al inicio).")]
+    public GameObject winUI;
     [Tooltip("Panel o canvas de UI")]
     public GameObject gameUI;
 
@@ -37,6 +39,7 @@ public class GameOverController : MonoBehaviour
     private void Start()
     {
         gameOverUI.SetActive(false);
+        winUI.SetActive(false);
         gameUI.SetActive(true);
     }
 
@@ -56,6 +59,26 @@ public class GameOverController : MonoBehaviour
         }
 
         StartCoroutine(ShowGameOverAfterDelay());
+    }
+
+    public void TriggerWin()
+    {
+        StartCoroutine(ShowWinAfterDelay());
+    }
+
+    IEnumerator ShowWinAfterDelay()
+    {
+        float timer = 0f;
+        while (timer < 4)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 0f;
+        gameUI.SetActive(false);
+        if (winUI != null)
+            winUI.SetActive(true);
     }
 
     IEnumerator ShowGameOverAfterDelay()

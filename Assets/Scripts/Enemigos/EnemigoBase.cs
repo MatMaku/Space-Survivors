@@ -81,7 +81,7 @@ public class EnemigoBase : ControladorEnemigos
     IEnumerator atacando()
     {
         puedeAtacar = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.5f);
         puedeAtacar = true;
     }
 }

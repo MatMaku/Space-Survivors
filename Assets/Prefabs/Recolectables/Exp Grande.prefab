@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28080cb69d8f2374f9b26fc99aa0b71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Valor: 5
+  Valor: 10
   lifeTime: 10
   blinkStartTime: 5
 --- !u!135 &8408693599651790786

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: S lvl 1
   m_EditorClassIdentifier: 
-  upgradeName: Sniper
-  description: Subir de nivel
+  upgradeName: 'Arma: Sniper'
+  description: Habilita el arma Sniper
   icon: {fileID: 0}
   type: 0
   weaponType: 4

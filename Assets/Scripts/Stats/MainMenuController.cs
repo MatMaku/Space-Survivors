@@ -1,13 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    [Header("Escena de Juego")]
-    [Tooltip("Nombre exacto de la escena de juego en Build Settings")]
-    public string gameSceneName = "GameScene";
-
     [Header("Animación de la Nave")]
     [Tooltip("GameObject de la nave que animaremos")]
     public GameObject ship;
@@ -35,9 +32,9 @@ public class MainMenuController : MonoBehaviour
     }
 
     // Ligar a tu botón “Jugar” en el OnClick
-    public void StartGame()
+    public void StartGame(string SceneName)
     {
-        SceneManager.LoadScene(gameSceneName);
+        SceneManager.LoadScene(SceneName);
     }
 
     IEnumerator ShipRoutine()

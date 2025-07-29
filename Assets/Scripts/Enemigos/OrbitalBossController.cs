@@ -112,4 +112,9 @@ public class OrbitalBossController : EnemigoOrbital
         dañoActual = dañoBase + nivel / 5;
     }
 
+    protected override void Morir()
+    {
+        GameOverController.Instance.TriggerWin();
+        base.Morir();
+    }
 }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47db793a1cbd7a547a7c463487235556, type: 3}
   m_Name: Dis lvl 1
   m_EditorClassIdentifier: 
-  upgradeName: Arma Descarga
+  upgradeName: 'Arma: Descarga'
   description: Habilita el arma Descarga
   icon: {fileID: 0}
   type: 0

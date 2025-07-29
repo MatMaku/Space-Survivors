@@ -155,15 +155,19 @@ MonoBehaviour:
   nivel: 0
   vidaBase: 2
   "da\xF1oBase": 1
-  velocidad: 1
+  velocidad: 0.5
   resistencia: 1
-  cantMaxExp: 4
+  cantMaxExp: 3
   cantMinExp: 1
   expPrefab: {fileID: 2876089371678725777, guid: d4c3d2fec7eb4054586d375ce372e908,
+    type: 3}
+  expPrefab2: {fileID: 5942166001734342277, guid: 9c01776dcb2814c449bee07715a03101,
     type: 3}
   vidaPrefab: {fileID: 340911842320458285, guid: 3f23889ecf9f5374d8afcccd59b8f1da,
     type: 3}
   expSpreadForce: 2
   vidaActual: 0
+  explosionPrefab: {fileID: 1007127540951276732, guid: 3ace37360f306cb4aac03640550fa9ef,
+    type: 3}
   radioSeparacion: 0.2
   fuerzaSeparacion: 0.5
