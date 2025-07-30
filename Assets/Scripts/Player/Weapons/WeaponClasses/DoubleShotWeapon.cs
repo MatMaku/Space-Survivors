@@ -72,7 +72,7 @@ public class DoubleShotWeapon : Weapon
         var damageComponent = proj.GetComponent<DoubleShotProyectile>();
         if (damageComponent != null)
         {
-            damageComponent.SetDamage(damage * PlayerStats.Instance.MultiplicadorDaño * (level >= 2? bonusDmg * level : 1)); //si es nivel 2 o mas se suma 10% de daño por nivel
+            damageComponent.SetDamage(damage * PlayerStats.Instance.MultiplicadorDaño + (level >= 2? bonusDmg * level : 0)); //si es nivel 2 o mas se suma 10% de daño por nivel
             if(level >= 5)
                 damageComponent.pierce = true;
         }
